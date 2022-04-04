@@ -7,47 +7,85 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editUser"
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="218dp"
+        android:layout_height="138dp"
+        android:layout_marginStart="102dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="102dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/soleus" />
+
+    <TextView
+        android:id="@+id/txtUser"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="181dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="182dp"
+        android:text="Usuario"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <EditText
-        android:id="@+id/editPassword"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/txtPassword"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:inputType="textPassword"
+        android:layout_marginStart="181dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="182dp"
+        android:text="Contraseña"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editUser" />
+
+
+    <EditText
+        android:id="@+id/editUser"
+        android:layout_width="313dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="52dp"
+        android:maxLength="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUser" />
+
+    <EditText
+        android:id="@+id/editPassword"
+        android:layout_width="313dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="52dp"
+        android:inputType="textPassword"
+        android:maxLength="6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
 
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="162dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="162dp"
         android:text="Login"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editPassword" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="207dp"
-        android:layout_height="149dp"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="59dp"
-        android:layout_marginEnd="102dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/soleus" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

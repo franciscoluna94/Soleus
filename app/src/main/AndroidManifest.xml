@@ -12,7 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Soleus">
         <activity
-            android:name=".UserWelcomeScreen"
+            android:name=".activities.MaintenanceRequestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.HousekeepingRequestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.UserWelcomeActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

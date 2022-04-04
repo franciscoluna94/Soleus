@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.soleus.models.UserModel;
+import com.soleus.net.ClientNet;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
                 String user = textField.getText().toString().trim();
                 String password = edit2.getText().toString().trim();
                 userModel = new UserModel(user, password);
-                new Thread(new ClientNet(userModel, "LOGIN", v)).start();
-
-            }
+                Thread login = new Thread( new ClientNet(userModel, "LOGIN", v)) ;
+                login.start();
+              }
         });
     }
 

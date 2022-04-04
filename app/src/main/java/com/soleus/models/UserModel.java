@@ -1,4 +1,4 @@
-package com.soleus;
+package com.soleus.models;
 
 
 public class UserModel {

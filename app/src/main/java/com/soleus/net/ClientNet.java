@@ -1,7 +1,10 @@
-package com.soleus;
+package com.soleus.net;
 
 import android.content.Intent;
 import android.view.View;
+
+import com.soleus.activities.UserWelcomeActivity;
+import com.soleus.models.UserModel;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,23 +22,23 @@ public class ClientNet implements Runnable {
     private View v;
     private String successAnswer = "OK";
     private String failedAnswer = "FAIL";
+    private String toastFailedLogin = "Por favor, verifique el usuario y la contraseña";
     BufferedReader input;
     String serverAnswer;
 
 
     private final String loginRequest = "LOGIN";
 
-    ClientNet(UserModel login, String requestType, View v) {
+    public ClientNet(UserModel login, String requestType, View v) {
         this.login = login;
         this.requestType = requestType;
         this.v = v;
     }
 
 
-    ;
-
     @Override
     public void run() {
+
         try {
 
             client = new Socket("192.168.100.30", 4444);  // connect to server
@@ -43,6 +46,7 @@ public class ClientNet implements Runnable {
             PrintWriter writer = new PrintWriter(output, true);
             input = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
+            // Login
             if (requestType.equals(loginRequest)) {
                 checkLogin(writer, input, client, login.getUser(), login.getPassword());
             }
@@ -54,6 +58,7 @@ public class ClientNet implements Runnable {
 
     } // end run()
 
+
     private void checkLogin(PrintWriter writer, BufferedReader input, Socket client,
                             String user, String password) {
         checkLogin = loginRequest + "\n" + user + "\n" + password;
@@ -62,12 +67,10 @@ public class ClientNet implements Runnable {
         try {
             serverAnswer = input.readLine();
             if (serverAnswer.equals(successAnswer)) {
-                System.out.println(serverAnswer);
                 openUserWelcome();
                 client.close();
-            } else {
-                System.out.println(serverAnswer);
-                System.out.println("Respuesta No");
+            } else  if (serverAnswer.equals(failedAnswer)){
+                // AÑADIR TOAST, ALERT O SIMILAR
                 client.close();
             }
 
@@ -78,8 +81,10 @@ public class ClientNet implements Runnable {
     } // end checkLogin
 
     private void openUserWelcome() {
-        Intent intent1 = new Intent(v.getContext(), UserWelcomeScreen.class);
-        v.getContext().startActivity(intent1);
+        Intent intentLogged = new Intent(v.getContext(), UserWelcomeActivity.class);
+        // Pasamos el valor del usuario que inicia sesión a la nueva activity
+        intentLogged.putExtra("userLogged", login.getUser());
+        v.getContext().startActivity(intentLogged);
     } // end openUserWelcome
 
 
