@@ -1,3 +1,40 @@
 <resources>
     <string name="app_name">Soleus</string>
+    <string-array name="spinnerHousekeeping1">
+        <item>Limpieza</item>
+        <item>Baño</item>
+        <item>Cama</item>
+    </string-array>
+    <string-array name="spinnerCleaning">
+        <item>Limpieza</item>
+    </string-array>
+    <string-array name="spinnerBathroomHousekeeping">
+        <item>Toalla rostro</item>
+        <item>Toalla baño</item>
+        <item>Cepillo de dientes</item>
+        <item>Jabón</item>
+        <item>Gel y champú</item>
+    </string-array>
+    <string-array name="spinnerBed">
+        <item>Cambio de sábanas</item>
+        <item>Almohada extra</item>
+    </string-array>
+    <string-array name="spinnerMaintenance">
+        <item>Iluminación</item>
+        <item>Televisor</item>
+        <item>Baño</item>
+    </string-array>
+    <string-array name="spinnerLighting">
+        <item>Cambio bombilla</item>
+        <item>Fallo electricidad</item>
+    </string-array>
+    <string-array name="spinnerTelevision">
+        <item>Problemas con el televisor</item>
+    </string-array>
+    <string-array name="spinnerBathroomMaintenance">
+        <item>Bañera</item>
+        <item>Ducha</item>
+        <item>Corte del agua</item>
+    </string-array>
+
 </resources>
