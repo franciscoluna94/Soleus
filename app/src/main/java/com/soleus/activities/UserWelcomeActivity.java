@@ -24,15 +24,19 @@ public class UserWelcomeActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_welcome_screen);
 
+        // Getting user value
+        Intent intentLogged = getIntent();
+        userLogged = intentLogged.getStringExtra("userLogged");
+
+        /* References to components */
         btnHousekeeping = (Button) findViewById(R.id.btnHousekeeping);
         btnMaintenance = (Button) findViewById(R.id.btnMaintenance);
 
         /* Listeners */
         btnHousekeeping.setOnClickListener(this);
         btnMaintenance.setOnClickListener(this);
-        // Recuperamos el usuario que ha iniciado sesión
-        Intent intentLogged = getIntent();
-        userLogged = intentLogged.getStringExtra("userLogged");
+
+
 
 
     }
