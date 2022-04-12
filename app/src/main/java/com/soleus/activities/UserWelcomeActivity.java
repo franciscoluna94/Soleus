@@ -9,13 +9,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.soleus.R;
+import com.soleus.models.UserModel;
 
 public class UserWelcomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView txtWelcome;
     private Button btnHousekeeping;
     private Button btnMaintenance;
-    private String userLogged;
+    private UserModel userLogged;
 
 
 
@@ -26,7 +27,7 @@ public class UserWelcomeActivity extends AppCompatActivity implements View.OnCli
 
         // Getting user value
         Intent intentLogged = getIntent();
-        userLogged = intentLogged.getStringExtra("userLogged");
+        userLogged = (UserModel) intentLogged.getSerializableExtra("userLogged");
 
         /* References to components */
         btnHousekeeping = (Button) findViewById(R.id.btnHousekeeping);

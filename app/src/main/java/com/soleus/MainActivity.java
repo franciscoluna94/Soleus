@@ -42,8 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Utils.makeToast(MainActivity.this, emptyFieldMessage);
         } else {
             userModel = new UserModel(user, password);
-            Thread login = new Thread( new ClientNet(userModel, "LOGIN",view, this)) ;
+            Thread login = new Thread( new ClientNet(userModel, "LOGIN", view, this)) ;
             login.start();
+
         }
     } // end onClick
 }

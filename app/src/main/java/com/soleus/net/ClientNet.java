@@ -8,53 +8,56 @@ import com.soleus.Utils;
 import com.soleus.activities.UserWelcomeActivity;
 import com.soleus.activities.WorkerActivity;
 import com.soleus.models.ClientRequest;
+import com.soleus.models.RoomRequest;
+import com.soleus.models.ServerAnswer;
 import com.soleus.models.UserModel;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientNet implements Runnable {
 
     /* Net variables */
-    private Socket client;
-    BufferedReader input;
+    private Socket clientSocket;
 
     /* Model instances */
-    private UserModel login;
-    private ClientRequest clientRequest;
+    private ClientRequest socketClientRequest;
+    private UserModel userToCheck;
+    private RoomRequest roomRequest;
+    private UserModel userLogged;
+    private ServerAnswer serverAnswer;
 
     /* Server Answers */
-    private String serverAnswer;
     private String successAnswer = "OK";
     private String failedAnswer = "FAIL";
-    private String workerSuccessAnswer = "OK_WORK";
-    private String userDepartment;
+    private String clientLogged = "CLIENT";
+    private String housekeepingLogged = "HOUSEKEEPING";
+    private String maintenanceLogged = "MAINTENANCE";
 
     /* Type of requests sent to server */
     private final String requestType;
     private final String loginRequest = "LOGIN";
-    private final String HousekeepingRequest = "HKR";
-    private final String MaintenanceRequest = "MTR";
-    private String checkLogin;
-    private String sendClientRequest;
+    private final String requestByRoom = "ROOM_REQUEST";
 
     private Activity activity;
     private View view;
 
 
+
+
     public ClientNet(UserModel login, String requestType, View view, Activity activity) {
-        this.login = login;
+        this.userToCheck = login;
         this.requestType = requestType;
         this.view = view;
         this.activity = activity;
     }
 
-    public ClientNet(ClientRequest clientRequest, String requestType, Activity activity) {
-        this.clientRequest = clientRequest;
+    public ClientNet(RoomRequest roomRequest, String requestType, Activity activity) {
+        this.roomRequest = roomRequest;
         this.requestType = requestType;
         this.activity = activity;
     }
@@ -65,24 +68,30 @@ public class ClientNet implements Runnable {
 
             try {
                 System.out.println(requestType);    // DEBUG
-                client = new Socket("192.168.100.30", 4444);
-                OutputStream output = client.getOutputStream();
-                PrintWriter writer = new PrintWriter(output, true);
-                input = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                clientSocket = new Socket("192.168.100.30", 4444);
+
+                OutputStream output = clientSocket.getOutputStream();
+                InputStream input = clientSocket.getInputStream();
+                ObjectOutputStream writer = new ObjectOutputStream(output);
+                ObjectInputStream reader = new ObjectInputStream(input);
+                socketClientRequest = new ClientRequest(requestType);
 
                 // Send information to server
                 if (requestType.equals(loginRequest)) {
-                    checkLogin(writer, input, client, login.getUser(), login.getPassword());
-                    System.out.println("Doing login");      // DEBUG
-                } else if (requestType.equals(HousekeepingRequest) ||
-                        requestType.equals(MaintenanceRequest)) {
-                    sendClientRequest(writer, input, client, clientRequest);
+                    writer.writeObject(socketClientRequest);
+                    checkLogin(writer, reader, clientSocket, userToCheck);
+                    System.out.println("Doing LOGIN");      // DEBUG
+                } else if (requestType.equals(requestByRoom)) {
+                    writer.writeObject(socketClientRequest);
+                    sendClientRequest(writer, reader, clientSocket, roomRequest);
                     System.out.println("Doing HK/MNT");      // DEBUG
                 }
                 System.out.println(requestType);
 
 
-            } catch (IOException e) {
+
+
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
                 activity.runOnUiThread(new Runnable() {
                     public void run() {
@@ -93,21 +102,24 @@ public class ClientNet implements Runnable {
 
         } // end run()
 
-        private void checkLogin (PrintWriter writer, BufferedReader input, Socket client,
-                String user, String password){
-            checkLogin = requestType + "\n" + user + "\n" + password;
-            writer.println(checkLogin);
+        private void checkLogin (ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                UserModel login) throws ClassNotFoundException {
 
             try {
-                serverAnswer = input.readLine();
-                if (serverAnswer.equals(successAnswer)) {
-                    openUserWelcome();
-                    client.close();
-                } else if (serverAnswer.equals(workerSuccessAnswer)) {
-                    userDepartment = input.readLine();
-                    openWorkerActivity();
-                    client.close();
-                } else if (serverAnswer.equals(failedAnswer)) {
+                writer.writeObject(login);
+                serverAnswer = (ServerAnswer) reader.readObject();
+                if (serverAnswer.getType().equals(successAnswer)) {
+                    userLogged = (UserModel) reader.readObject();
+                    if (userLogged.getDepartment().equals(clientLogged)) {
+                        openUserWelcome();
+                        client.close();
+                    } else if (userLogged.getDepartment().equals(housekeepingLogged) ||
+                            userLogged.getDepartment().equals(maintenanceLogged)) {
+                        openWorkerActivity();
+                        client.close();
+                }
+
+                } else if (serverAnswer.getType().equals(failedAnswer)) {
 
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
@@ -128,25 +140,19 @@ public class ClientNet implements Runnable {
 
         } // end checkLogin
 
-        private void sendClientRequest (PrintWriter writer, BufferedReader input, Socket client,
-                ClientRequest clientRequest){
-            sendClientRequest = requestType + "\n" +
-                    clientRequest.getClientRoom() + "\n" +
-                    clientRequest.getRequestTopic() + "\n" +
-                    clientRequest.getRequestItem() + "\n" +
-                    clientRequest.getRequestdescription();
-            System.out.println(sendClientRequest);       // DEBUG
-            writer.println(sendClientRequest);
+        private void sendClientRequest (ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                                        RoomRequest roomRequest) throws ClassNotFoundException{
 
             try {
-                serverAnswer = input.readLine();
-                if (serverAnswer.equals(successAnswer)) {
+                writer.writeObject(roomRequest);
+                serverAnswer = (ServerAnswer) reader.readObject();
+                if (serverAnswer.getType().equals(successAnswer)) {
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
                             Utils.showRequestSentToast(activity.getApplicationContext());
                         }
                     });
-                } else if (serverAnswer.equals(failedAnswer)) {
+                } else if (serverAnswer.getType().equals(failedAnswer)) {
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
                             Utils.showServerErrorToast(activity.getApplicationContext());
@@ -169,16 +175,14 @@ public class ClientNet implements Runnable {
         private void openUserWelcome () {
             Intent intentLogged = new Intent(view.getContext(), UserWelcomeActivity.class);
             // Passing user value to the new activity
-            intentLogged.putExtra("userLogged", login.getUser());
+            intentLogged.putExtra("userLogged", userLogged);
             view.getContext().startActivity(intentLogged);
         } // end openUserWelcome
 
         private void openWorkerActivity () {
             Intent intentLogged = new Intent(view.getContext(), WorkerActivity.class);
             // Passing user value to the new activity
-            intentLogged.putExtra("userLogged", login.getUser());
-            view.getContext().startActivity(intentLogged);
-            intentLogged.putExtra("userDepartment", userDepartment);
+            intentLogged.putExtra("userLogged", userLogged);
             view.getContext().startActivity(intentLogged);
         } // end openWorkerActivity
 

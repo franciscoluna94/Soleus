@@ -1,9 +1,12 @@
 package com.soleus.models;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class UserModel {
+public class UserModel implements Serializable {
+
+    private static final long serialVersionUID = 2L;
 
     private String user;
     private String password;

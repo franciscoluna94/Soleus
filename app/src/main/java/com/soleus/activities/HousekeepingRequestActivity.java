@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,21 +11,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.soleus.MainActivity;
 import com.soleus.R;
-import com.soleus.Utils;
-import com.soleus.models.ClientRequest;
+import com.soleus.models.RoomRequest;
 import com.soleus.models.UserModel;
 import com.soleus.net.ClientNet;
 
 public class HousekeepingRequestActivity extends AppCompatActivity implements View.OnClickListener  {
 
-    private String userLogged;
+    private UserModel userLogged;
     private Spinner spinnerTopic;
     private Spinner spinnerItem;
     private EditText editDescription;
     private Button buttonSendHousekeeping;
-    private ClientRequest clientRequest;
+    private RoomRequest roomRequest;
     ArrayAdapter<String> topicSpinnerAdapter;
     ArrayAdapter<String> bedSpinnerAdapter;
     ArrayAdapter<String> bathroomSpinnerAdapter;
@@ -41,7 +38,7 @@ public class HousekeepingRequestActivity extends AppCompatActivity implements Vi
 
         // Getting user value
         Intent intentLogged = getIntent();
-        userLogged = intentLogged.getStringExtra("userLogged");
+        userLogged = (UserModel) intentLogged.getSerializableExtra("userLogged");
 
         // Arrays to populate the spinners
         String[] topics = getResources().getStringArray(R.array.spinnerHousekeeping1);
@@ -102,11 +99,11 @@ public class HousekeepingRequestActivity extends AppCompatActivity implements Vi
 
     public void onClick(View view) {
 
-        clientRequest = new ClientRequest(spinnerTopic.getSelectedItem().toString(),
+        roomRequest = new RoomRequest(spinnerTopic.getSelectedItem().toString(),
                 spinnerItem.getSelectedItem().toString(),
-                editDescription.getText().toString(),
-                userLogged);
-        Thread sendHousekeepingRequest = new Thread( new ClientNet(clientRequest, "HKR", this));
+                editDescription.getText().toString(), "HOUSEKEEPING",
+                userLogged.getUser());
+        Thread sendHousekeepingRequest = new Thread( new ClientNet(roomRequest, "ROOM_REQUEST", this));
         sendHousekeepingRequest.start();
 
         } // end OnClick

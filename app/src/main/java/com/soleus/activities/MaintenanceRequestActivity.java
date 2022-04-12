@@ -12,17 +12,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.soleus.R;
-import com.soleus.models.ClientRequest;
+import com.soleus.models.RoomRequest;
+import com.soleus.models.UserModel;
 import com.soleus.net.ClientNet;
 
 public class MaintenanceRequestActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private String userLogged;
+    private UserModel userLogged;
     private Spinner spinnerTopic;
     private Spinner spinnerItem;
     private EditText editDescription;
     private Button buttonSendMaintenance;
-    private ClientRequest clientRequest;
+    private RoomRequest roomRequest;
     ArrayAdapter<String> topicSpinnerAdapter;
     ArrayAdapter<String> lightingSpinnerAdapter;
     ArrayAdapter<String> televisionSpinnerAdapter;
@@ -35,8 +36,7 @@ public class MaintenanceRequestActivity extends AppCompatActivity implements Vie
 
         // Getting user value
         Intent intentLogged = getIntent();
-        userLogged = intentLogged.getStringExtra("userLogged");
-
+        userLogged = (UserModel) intentLogged.getSerializableExtra("userLogged");
 
         // Arrays to populate the spinners
         String[] topics = getResources().getStringArray(R.array.spinnerMaintenance);
@@ -98,11 +98,12 @@ public class MaintenanceRequestActivity extends AppCompatActivity implements Vie
 
     public void onClick(View view) {
 
-        clientRequest = new ClientRequest(spinnerTopic.getSelectedItem().toString(),
+
+        roomRequest = new RoomRequest(spinnerTopic.getSelectedItem().toString(),
                 spinnerItem.getSelectedItem().toString(),
-                editDescription.getText().toString(),
-                userLogged);
-        Thread sendMaintenanceRequest = new Thread( new ClientNet(clientRequest, "MTR", this));
+                editDescription.getText().toString(), "MAINTENANCE",
+                userLogged.getUser());
+        Thread sendMaintenanceRequest = new Thread( new ClientNet(roomRequest, "ROOM_REQUEST", this));
         sendMaintenanceRequest.start();
 
     } // end OnClick

@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.soleus.R;
+import com.soleus.models.UserModel;
 
 public class WorkerActivity extends AppCompatActivity {
 
-    private String userLogged;
-    private String userDepartment;
+    private UserModel userLogged;
     TextView textview;    // DEBUG
 
     @Override
@@ -21,11 +21,10 @@ public class WorkerActivity extends AppCompatActivity {
 
         // Getting user and department value
         Intent intentLogged = getIntent();
-        userLogged = intentLogged.getStringExtra("userLogged");
-        userDepartment = intentLogged.getStringExtra("userDepartment");
+        userLogged = (UserModel) intentLogged.getSerializableExtra("userLogged");
 
         textview = (TextView) findViewById(R.id.textView);  // DEBUG
-        textview.setText(userDepartment);   // DEBUG
+        textview.setText(userLogged.getDepartment());   // DEBUG
 
 
 
