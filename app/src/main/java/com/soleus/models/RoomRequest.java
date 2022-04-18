@@ -25,8 +25,9 @@ public class RoomRequest implements Serializable {
         this.clientRoom = clientRoom;
     }
 
-    public RoomRequest(String requestTopic, String requestItem, String requestDescription, String requestDepartment,
+    public RoomRequest(String requestItem, String requestDescription, String requestDepartment,
                        boolean requestEnded, String clientRoom) {
+        this.requestId = requestId;
         this.requestTopic = requestTopic;
         this.requestItem = requestItem;
         this.requestDescription = requestDescription;
