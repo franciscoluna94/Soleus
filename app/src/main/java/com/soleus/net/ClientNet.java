@@ -18,6 +18,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientNet implements Runnable {
 
@@ -30,6 +32,7 @@ public class ClientNet implements Runnable {
     private RoomRequest roomRequest;
     private UserModel userLogged;
     private ServerAnswer serverAnswer;
+    private List <RoomRequest> roomRequestList;
 
     /* Server Answers */
     private String successAnswer = "OK";
@@ -43,11 +46,9 @@ public class ClientNet implements Runnable {
     private final String loginRequest = "LOGIN";
     private final String requestByRoom = "ROOM_REQUEST";
 
+    /* Related to activities */
     private Activity activity;
     private View view;
-
-
-
 
     public ClientNet(UserModel login, String requestType, View view, Activity activity) {
         this.userToCheck = login;
@@ -115,6 +116,7 @@ public class ClientNet implements Runnable {
                         client.close();
                     } else if (userLogged.getDepartment().equals(housekeepingLogged) ||
                             userLogged.getDepartment().equals(maintenanceLogged)) {
+                        roomRequestList = (List<RoomRequest>) reader.readObject();
                         openWorkerActivity();
                         client.close();
                 }
@@ -170,7 +172,8 @@ public class ClientNet implements Runnable {
                 });
             }
 
-        } // end sendHousekeepingRequest
+        } // end sendClientRequest
+
 
         private void openUserWelcome () {
             Intent intentLogged = new Intent(view.getContext(), UserWelcomeActivity.class);
@@ -183,6 +186,8 @@ public class ClientNet implements Runnable {
             Intent intentLogged = new Intent(view.getContext(), WorkerActivity.class);
             // Passing user value to the new activity
             intentLogged.putExtra("userLogged", userLogged);
+            ArrayList<RoomRequest> pendingRequests = new ArrayList<>(roomRequestList);
+            intentLogged.putExtra("roomRequestList", pendingRequests);
             view.getContext().startActivity(intentLogged);
         } // end openWorkerActivity
 
