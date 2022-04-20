@@ -8,6 +8,7 @@ public final class Utils {
     private static String toastFailedLogin = "Por favor, verifique el usuario y la contraseña";
     private static String severErrorToast = "Este servicio no se encuentra disponible, por favor, contacte con recepción";
     private static String requestSentConfirmation = "Petición enviada";
+    private static String requestEndedConfirmation = "Petición terminada";
 
     private Utils() {
     }
@@ -26,6 +27,10 @@ public final class Utils {
 
     public static void showRequestSentToast(Context context) {
         Toast.makeText(context, requestSentConfirmation, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showEndedRequestToast(Context context) {
+        Toast.makeText(context, requestEndedConfirmation, Toast.LENGTH_SHORT).show();
     }
 
 

@@ -32,7 +32,8 @@ public class ClientNet implements Runnable {
     private RoomRequest roomRequest;
     private UserModel userLogged;
     private ServerAnswer serverAnswer;
-    private List <RoomRequest> roomRequestList;
+    private List<RoomRequest> roomRequestList;
+
 
     /* Server Answers */
     private String successAnswer = "OK";
@@ -45,10 +46,12 @@ public class ClientNet implements Runnable {
     private final String requestType;
     private final String loginRequest = "LOGIN";
     private final String requestByRoom = "ROOM_REQUEST";
+    private final String endRoomRequest = "END_REQUEST";
 
     /* Related to activities */
     private Activity activity;
     private View view;
+
 
     public ClientNet(UserModel login, String requestType, View view, Activity activity) {
         this.userToCheck = login;
@@ -63,116 +66,141 @@ public class ClientNet implements Runnable {
         this.activity = activity;
     }
 
+    public ClientNet(RoomRequest roomRequestId, String requestType) {
+        this.roomRequest = roomRequestId;
+        this.requestType = requestType;
+    }
+
 
     @Override
     public void run() {
 
-            try {
-                System.out.println(requestType);    // DEBUG
-                clientSocket = new Socket("192.168.100.30", 4444);
+        try {
+            System.out.println(requestType);    // DEBUG
+            clientSocket = new Socket("192.168.100.30", 4444);
 
-                OutputStream output = clientSocket.getOutputStream();
-                InputStream input = clientSocket.getInputStream();
-                ObjectOutputStream writer = new ObjectOutputStream(output);
-                ObjectInputStream reader = new ObjectInputStream(input);
-                socketClientRequest = new ClientRequest(requestType);
+            OutputStream output = clientSocket.getOutputStream();
+            InputStream input = clientSocket.getInputStream();
+            ObjectOutputStream writer = new ObjectOutputStream(output);
+            ObjectInputStream reader = new ObjectInputStream(input);
+            socketClientRequest = new ClientRequest(requestType);
 
-                // Send information to server
-                if (requestType.equals(loginRequest)) {
-                    writer.writeObject(socketClientRequest);
-                    checkLogin(writer, reader, clientSocket, userToCheck);
-                    System.out.println("Doing LOGIN");      // DEBUG
-                } else if (requestType.equals(requestByRoom)) {
-                    writer.writeObject(socketClientRequest);
-                    sendClientRequest(writer, reader, clientSocket, roomRequest);
-                    System.out.println("Doing HK/MNT");      // DEBUG
-                }
-                System.out.println(requestType);
-
-
-
-
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-                activity.runOnUiThread(new Runnable() {
-                    public void run() {
-                        Utils.showServerErrorToast(activity.getApplicationContext());
-                    }
-                });
+            // Send information to server
+            if (requestType.equals(loginRequest)) {
+                writer.writeObject(socketClientRequest);
+                checkLogin(writer, reader, clientSocket, userToCheck);
+                System.out.println("Doing LOGIN");      // DEBUG
+            } else if (requestType.equals(requestByRoom)) {
+                writer.writeObject(socketClientRequest);
+                sendClientRequest(writer, reader, clientSocket, roomRequest);
+                System.out.println("Doing HK/MNT");      // DEBUG
+            } else if (requestType.equals(endRoomRequest)) {
+                writer.writeObject(socketClientRequest);
+                endRoomRequest(writer, reader, clientSocket, roomRequest);
+                System.out.println("Doing END_REQUEST");      // DEBUG
             }
+            System.out.println(requestType);
 
-        } // end run()
 
-        private void checkLogin (ObjectOutputStream writer, ObjectInputStream reader, Socket client,
-                UserModel login) throws ClassNotFoundException {
-
-            try {
-                writer.writeObject(login);
-                serverAnswer = (ServerAnswer) reader.readObject();
-                if (serverAnswer.getType().equals(successAnswer)) {
-                    userLogged = (UserModel) reader.readObject();
-                    if (userLogged.getDepartment().equals(clientLogged)) {
-                        openUserWelcome();
-                        client.close();
-                    } else if (userLogged.getDepartment().equals(housekeepingLogged) ||
-                            userLogged.getDepartment().equals(maintenanceLogged)) {
-                        roomRequestList = (List<RoomRequest>) reader.readObject();
-                        openWorkerActivity();
-                        client.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            activity.runOnUiThread(new Runnable() {
+                public void run() {
+                    Utils.showServerErrorToast(activity.getApplicationContext());
                 }
+            });
+        }
 
-                } else if (serverAnswer.getType().equals(failedAnswer)) {
+    } // end run()
 
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            Utils.showToastFailedLogin(activity.getApplicationContext());
-                        }
-                    });
+    private void checkLogin(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                            UserModel login) throws ClassNotFoundException {
+
+        try {
+            writer.writeObject(login);
+            serverAnswer = (ServerAnswer) reader.readObject();
+            if (serverAnswer.getType().equals(successAnswer)) {
+                userLogged = (UserModel) reader.readObject();
+                if (userLogged.getDepartment().equals(clientLogged)) {
+                    openUserWelcome();
+                    client.close();
+                } else if (userLogged.getDepartment().equals(housekeepingLogged) ||
+                        userLogged.getDepartment().equals(maintenanceLogged)) {
+                    roomRequestList = (List<RoomRequest>) reader.readObject();
+                    openWorkerActivity();
                     client.close();
                 }
 
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else if (serverAnswer.getType().equals(failedAnswer)) {
+
                 activity.runOnUiThread(new Runnable() {
                     public void run() {
-                        Utils.showServerErrorToast(activity.getApplicationContext());
+                        Utils.showToastFailedLogin(activity.getApplicationContext());
                     }
                 });
+                client.close();
             }
 
-        } // end checkLogin
-
-        private void sendClientRequest (ObjectOutputStream writer, ObjectInputStream reader, Socket client,
-                                        RoomRequest roomRequest) throws ClassNotFoundException{
-
-            try {
-                writer.writeObject(roomRequest);
-                serverAnswer = (ServerAnswer) reader.readObject();
-                if (serverAnswer.getType().equals(successAnswer)) {
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            Utils.showRequestSentToast(activity.getApplicationContext());
-                        }
-                    });
-                } else if (serverAnswer.getType().equals(failedAnswer)) {
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            Utils.showServerErrorToast(activity.getApplicationContext());
-                        }
-                    });
-                    client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            activity.runOnUiThread(new Runnable() {
+                public void run() {
+                    Utils.showServerErrorToast(activity.getApplicationContext());
                 }
+            });
+        }
 
-            } catch (IOException e) {
-                e.printStackTrace();
+    } // end checkLogin
+
+    private void sendClientRequest(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                                   RoomRequest roomRequest) throws ClassNotFoundException {
+
+        try {
+            writer.writeObject(roomRequest);
+            serverAnswer = (ServerAnswer) reader.readObject();
+            if (serverAnswer.getType().equals(successAnswer)) {
+                activity.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Utils.showRequestSentToast(activity.getApplicationContext());
+                    }
+                });
+            } else if (serverAnswer.getType().equals(failedAnswer)) {
                 activity.runOnUiThread(new Runnable() {
                     public void run() {
                         Utils.showServerErrorToast(activity.getApplicationContext());
                     }
                 });
+                client.close();
             }
 
-        } // end sendClientRequest
+        } catch (IOException e) {
+            e.printStackTrace();
+            activity.runOnUiThread(new Runnable() {
+                public void run() {
+                    Utils.showServerErrorToast(activity.getApplicationContext());
+                }
+            });
+        }
+
+    }// end sendClientRequest
+
+
+
+    private void endRoomRequest(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                                RoomRequest roomRequest) throws ClassNotFoundException {
+
+        try {
+            writer.writeObject(roomRequest);
+            serverAnswer = (ServerAnswer) reader.readObject();
+            if (serverAnswer.getType().equals(successAnswer)) {
+
+            } client.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            }
+    } // endRoomRequest
+
 
 
         private void openUserWelcome () {

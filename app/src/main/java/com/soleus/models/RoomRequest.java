@@ -45,6 +45,10 @@ public class RoomRequest implements Serializable {
         this.clientRoom = clientRoom;
     }
 
+    public RoomRequest(int requestId) {
+        this.requestId = requestId;
+    }
+
     public String getRequestTopic() {
         return requestTopic;
     }

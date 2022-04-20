@@ -51,6 +51,7 @@ public class WorkerActivity extends AppCompatActivity {
         roomRequestAdapter = new RoomRequestAdapter(roomRequestList, this);
 
         recyclerView.setAdapter(roomRequestAdapter);
+
     } // end initializeElements
 
 }
