@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             userModel = new UserModel(user, password);
             Thread login = new Thread( new ClientNet(userModel, "LOGIN", view, this)) ;
             login.start();
-
         }
     } // end onClick
 }

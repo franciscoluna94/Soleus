@@ -96,5 +96,5 @@ public class RoomRequestAdapter extends RecyclerView.Adapter<RoomRequestAdapter.
             return true;
         } // end onLongClick
 
-    }
+    } // end ViewHolder class
 }
