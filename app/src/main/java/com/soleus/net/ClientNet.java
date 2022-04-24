@@ -1,8 +1,12 @@
 package com.soleus.net;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
+
+import androidx.annotation.RequiresApi;
 
 import com.soleus.Utils;
 import com.soleus.activities.UserWelcomeActivity;
@@ -20,6 +24,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ClientNet implements Runnable {
 
@@ -72,6 +77,7 @@ public class ClientNet implements Runnable {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void run() {
 
@@ -84,6 +90,8 @@ public class ClientNet implements Runnable {
             ObjectOutputStream writer = new ObjectOutputStream(output);
             ObjectInputStream reader = new ObjectInputStream(input);
             socketClientRequest = new ClientRequest(requestType);
+
+
 
             // Send information to server
             if (requestType.equals(loginRequest)) {
@@ -109,18 +117,23 @@ public class ClientNet implements Runnable {
                     Utils.showServerErrorToast(activity.getApplicationContext());
                 }
             });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     } // end run()
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void checkLogin(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
                             UserModel login) throws ClassNotFoundException {
 
         try {
+            login = Utils.encrypt(login);
             writer.writeObject(login);
             serverAnswer = (ServerAnswer) reader.readObject();
             if (serverAnswer.getType().equals(successAnswer)) {
                 userLogged = (UserModel) reader.readObject();
+                userLogged = Utils.decrypt(userLogged);
                 if (userLogged.getDepartment().equals(clientLogged)) {
                     openUserWelcome();
                     client.close();
@@ -134,6 +147,7 @@ public class ClientNet implements Runnable {
             } else if (serverAnswer.getType().equals(failedAnswer)) {
 
                 activity.runOnUiThread(new Runnable() {
+                    @SuppressLint("NewApi")
                     public void run() {
                         Utils.showToastFailedLogin(activity.getApplicationContext());
                     }
@@ -144,10 +158,13 @@ public class ClientNet implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
             activity.runOnUiThread(new Runnable() {
+                @SuppressLint("NewApi")
                 public void run() {
                     Utils.showServerErrorToast(activity.getApplicationContext());
                 }
             });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     } // end checkLogin
@@ -160,12 +177,14 @@ public class ClientNet implements Runnable {
             serverAnswer = (ServerAnswer) reader.readObject();
             if (serverAnswer.getType().equals(successAnswer)) {
                 activity.runOnUiThread(new Runnable() {
+                    @SuppressLint("NewApi")
                     public void run() {
                         Utils.showRequestSentToast(activity.getApplicationContext());
                     }
                 });
             } else if (serverAnswer.getType().equals(failedAnswer)) {
                 activity.runOnUiThread(new Runnable() {
+                    @SuppressLint("NewApi")
                     public void run() {
                         Utils.showServerErrorToast(activity.getApplicationContext());
                     }
@@ -176,6 +195,7 @@ public class ClientNet implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
             activity.runOnUiThread(new Runnable() {
+                @SuppressLint("NewApi")
                 public void run() {
                     Utils.showServerErrorToast(activity.getApplicationContext());
                 }

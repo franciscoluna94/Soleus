@@ -13,6 +13,7 @@
         android:theme="@style/Theme.Soleus" >
         <activity
             android:name=".activities.WorkerActivity"
+            android:noHistory="true"
             android:exported="false" />
         <activity
             android:name=".activities.MaintenanceRequestActivity"
