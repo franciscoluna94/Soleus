@@ -51,7 +51,7 @@ public class WorkerActivity extends AppCompatActivity implements View.OnClickLis
 
     public void onClick(View view) {
 
-        Thread login = new Thread( new ClientNet(userLogged, "LOGIN", view, this)) ;
+        Thread login = new Thread( new ClientNet(userLogged, "GET_RR_LIST", view, this)) ;
         login.start();
     } // end onClick
 
@@ -65,5 +65,7 @@ public class WorkerActivity extends AppCompatActivity implements View.OnClickLis
         recyclerView.setAdapter(roomRequestAdapter);
 
     } // end initializeElements
+
+
 
 }

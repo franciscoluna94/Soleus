@@ -62,7 +62,6 @@ public class RoomRequestAdapter extends RecyclerView.Adapter<RoomRequestAdapter.
         private TextView txtItemCard;
         private TextView txtDescriptionCard;
         private TextView txtIdCard;
-        private ArrayList<String> roomRequestToEnd = new ArrayList<>();
 
         public ViewHolder(View view) {
             super(view);

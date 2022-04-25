@@ -9,6 +9,7 @@ import android.view.View;
 import androidx.annotation.RequiresApi;
 
 import com.soleus.Utils;
+import com.soleus.activities.AdminActivity;
 import com.soleus.activities.UserWelcomeActivity;
 import com.soleus.activities.WorkerActivity;
 import com.soleus.models.ClientRequest;
@@ -46,12 +47,14 @@ public class ClientNet implements Runnable {
     private String clientLogged = "CLIENT";
     private String housekeepingLogged = "HOUSEKEEPING";
     private String maintenanceLogged = "MAINTENANCE";
+    private String adminLogged = "ADMIN";
 
     /* Type of requests sent to server */
     private final String requestType;
     private final String loginRequest = "LOGIN";
     private final String requestByRoom = "ROOM_REQUEST";
     private final String endRoomRequest = "END_REQUEST";
+    private final String getPendingRequests = "GET_RR_LIST";
 
     /* Related to activities */
     private Activity activity;
@@ -92,20 +95,20 @@ public class ClientNet implements Runnable {
             socketClientRequest = new ClientRequest(requestType);
 
 
-
             // Send information to server
-            if (requestType.equals(loginRequest)) {
                 writer.writeObject(socketClientRequest);
+            if (requestType.equals(loginRequest)) {
                 checkLogin(writer, reader, clientSocket, userToCheck);
                 System.out.println("Doing LOGIN");      // DEBUG
             } else if (requestType.equals(requestByRoom)) {
-                writer.writeObject(socketClientRequest);
                 sendClientRequest(writer, reader, clientSocket, roomRequest);
                 System.out.println("Doing HK/MNT");      // DEBUG
             } else if (requestType.equals(endRoomRequest)) {
-                writer.writeObject(socketClientRequest);
                 endRoomRequest(writer, reader, clientSocket, roomRequest);
                 System.out.println("Doing END_REQUEST");      // DEBUG
+            } else if (requestType.equals(getPendingRequests)){
+                getRoomRequestList(writer, reader, clientSocket, userToCheck);
+                System.out.println("Doing RR_LIST");      // DEBUG
             }
             System.out.println(requestType);
 
@@ -133,14 +136,16 @@ public class ClientNet implements Runnable {
             serverAnswer = (ServerAnswer) reader.readObject();
             if (serverAnswer.getType().equals(successAnswer)) {
                 userLogged = (UserModel) reader.readObject();
-                userLogged = Utils.decrypt(userLogged);
                 if (userLogged.getDepartment().equals(clientLogged)) {
                     openUserWelcome();
                     client.close();
                 } else if (userLogged.getDepartment().equals(housekeepingLogged) ||
                         userLogged.getDepartment().equals(maintenanceLogged)) {
                     roomRequestList = (List<RoomRequest>) reader.readObject();
-                    openWorkerActivity();
+                    openWorkerActivity(userLogged);
+                    client.close();
+                } else if (userLogged.getDepartment().equals(adminLogged)) {
+                    openAdminActivity();
                     client.close();
                 }
 
@@ -205,7 +210,6 @@ public class ClientNet implements Runnable {
     }// end sendClientRequest
 
 
-
     private void endRoomRequest(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
                                 RoomRequest roomRequest) throws ClassNotFoundException {
 
@@ -214,31 +218,53 @@ public class ClientNet implements Runnable {
             serverAnswer = (ServerAnswer) reader.readObject();
             if (serverAnswer.getType().equals(successAnswer)) {
 
-            } client.close();
+            }
+            client.close();
 
         } catch (IOException e) {
             e.printStackTrace();
-            }
+        }
     } // endRoomRequest
 
 
+    private void getRoomRequestList(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                                    UserModel userLogged) throws ClassNotFoundException {
 
-        private void openUserWelcome () {
-            Intent intentLogged = new Intent(view.getContext(), UserWelcomeActivity.class);
-            // Passing user value to the new activity
-            intentLogged.putExtra("userLogged", userLogged);
-            view.getContext().startActivity(intentLogged);
-        } // end openUserWelcome
+        try {
+            writer.writeObject(userLogged);
+            roomRequestList = (List<RoomRequest>) reader.readObject();
+            openWorkerActivity(userLogged);
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } // end getRoomRequestList
 
-        private void openWorkerActivity () {
-            Intent intentLogged = new Intent(view.getContext(), WorkerActivity.class);
-            // Passing user value to the new activity
-            intentLogged.putExtra("userLogged", userLogged);
-            ArrayList<RoomRequest> pendingRequests = new ArrayList<>(roomRequestList);
-            intentLogged.putExtra("roomRequestList", pendingRequests);
-            view.getContext().startActivity(intentLogged);
-        } // end openWorkerActivity
+    private void openUserWelcome() {
+        Intent intentLogged = new Intent(view.getContext(), UserWelcomeActivity.class);
+        // Passing user value to the new activity
+        intentLogged.putExtra("userLogged", userLogged);
+        view.getContext().startActivity(intentLogged);
+    } // end openUserWelcome
+
+    private void openWorkerActivity(UserModel userLogged) {
+        Intent intentLogged = new Intent(view.getContext(), WorkerActivity.class);
+        // Passing user value to the new activity
+        intentLogged.putExtra("userLogged", userLogged);
+        ArrayList<RoomRequest> pendingRequests = new ArrayList<>(roomRequestList);
+        intentLogged.putExtra("roomRequestList", pendingRequests);
+        view.getContext().startActivity(intentLogged);
+    } // end openWorkerActivity
+
+    private void openAdminActivity() {
+        Intent intentLogged = new Intent(view.getContext(), AdminActivity.class);
+        // Passing user value to the new activity
+        intentLogged.putExtra("userLogged", userLogged);
+        view.getContext().startActivity(intentLogged);
+    } // end openAdminActivity
 
 
-    }
+
+
+}
 

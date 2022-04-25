@@ -1,6 +1,8 @@
 package com.soleus;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button.setOnClickListener(this);
     } // end onCreate
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onClick(View view) {
         String user = textField.getText().toString().trim();
         String password = edit2.getText().toString().trim();
