@@ -51,8 +51,8 @@ public class WorkerActivity extends AppCompatActivity implements View.OnClickLis
 
     public void onClick(View view) {
 
-        Thread login = new Thread( new ClientNet(userLogged, "GET_RR_LIST", view, this)) ;
-        login.start();
+        Thread getRoomRequests = new Thread( new ClientNet(userLogged, "GET_RR_LIST", view, this)) ;
+        getRoomRequests.start();
     } // end onClick
 
     private void initializeElements() {

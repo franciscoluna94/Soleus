@@ -27,6 +27,18 @@ public class UserModel implements Serializable {
         this.department = department;
     }
 
+    public UserModel(String user){
+        super();
+        this.user = user;
+    }
+
+    public UserModel(String user, String name, String department) {
+        super();
+        this.user = user;
+        this.name = name;
+        this.department = department;
+    }
+
 
     public String getUser() {
         return user;

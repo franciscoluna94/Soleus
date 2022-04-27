@@ -8,16 +8,19 @@
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.16331994645247658" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout-w936dp/activity_login.xml" value="0.190625" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/activity_admin.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/activity_create_or_modify_user.xml" value="0.264" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/activity_housekeeping_request.xml" value="0.2" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/activity_maintenance_request.xml" value="0.21784420289855072" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/activity_room_request_manager.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/activity_user_manager.xml" value="0.264" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/activity_user_welcome_screen.xml" value="0.21784420289855072" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/activity_welcome_user.xml" value="0.21784420289855072" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/activity_worker.xml" value="0.21784420289855072" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/room_request_card.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/user_logged.xml" value="0.21784420289855072" />
+        <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/layout/user_model_card.xml" value="0.264" />
         <entry key="..\:/Users/34626/AndroidStudioProjects/Soleus/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.124" />
       </map>
     </option>

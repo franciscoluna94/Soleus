@@ -10,6 +10,8 @@ import androidx.annotation.RequiresApi;
 
 import com.soleus.Utils;
 import com.soleus.activities.AdminActivity;
+import com.soleus.activities.CreateOrModifyUserActivity;
+import com.soleus.activities.UserManagerActivity;
 import com.soleus.activities.UserWelcomeActivity;
 import com.soleus.activities.WorkerActivity;
 import com.soleus.models.ClientRequest;
@@ -34,11 +36,12 @@ public class ClientNet implements Runnable {
 
     /* Model instances */
     private ClientRequest socketClientRequest;
-    private UserModel userToCheck;
+    private UserModel userSent;
     private RoomRequest roomRequest;
-    private UserModel userLogged;
+    private UserModel userReceived;
     private ServerAnswer serverAnswer;
     private List<RoomRequest> roomRequestList;
+    private List<UserModel> userModelList;
 
 
     /* Server Answers */
@@ -55,6 +58,11 @@ public class ClientNet implements Runnable {
     private final String requestByRoom = "ROOM_REQUEST";
     private final String endRoomRequest = "END_REQUEST";
     private final String getPendingRequests = "GET_RR_LIST";
+    private final String getUsers = "GET_UM_LIST";
+    private final String deleteUser = "DELETE_USER";
+    private final String getUserToModify = "GET_USER";
+    private final String createUser = "CREATE_USER";
+    private final String modifyUser = "MODIFY_USER";
 
     /* Related to activities */
     private Activity activity;
@@ -62,7 +70,7 @@ public class ClientNet implements Runnable {
 
 
     public ClientNet(UserModel login, String requestType, View view, Activity activity) {
-        this.userToCheck = login;
+        this.userSent = login;
         this.requestType = requestType;
         this.view = view;
         this.activity = activity;
@@ -78,6 +86,13 @@ public class ClientNet implements Runnable {
         this.roomRequest = roomRequestId;
         this.requestType = requestType;
     }
+
+    public ClientNet(UserModel login, String requestType, View view) {
+        this.userSent = login;
+        this.requestType = requestType;
+        this.view = view;
+    }
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -98,7 +113,7 @@ public class ClientNet implements Runnable {
             // Send information to server
                 writer.writeObject(socketClientRequest);
             if (requestType.equals(loginRequest)) {
-                checkLogin(writer, reader, clientSocket, userToCheck);
+                checkLogin(writer, reader, clientSocket, userSent);
                 System.out.println("Doing LOGIN");      // DEBUG
             } else if (requestType.equals(requestByRoom)) {
                 sendClientRequest(writer, reader, clientSocket, roomRequest);
@@ -107,8 +122,23 @@ public class ClientNet implements Runnable {
                 endRoomRequest(writer, reader, clientSocket, roomRequest);
                 System.out.println("Doing END_REQUEST");      // DEBUG
             } else if (requestType.equals(getPendingRequests)){
-                getRoomRequestList(writer, reader, clientSocket, userToCheck);
+                getRoomRequestList(writer, reader, clientSocket, userSent);
                 System.out.println("Doing RR_LIST");      // DEBUG
+            } else if (requestType.equals(getUsers)){
+                getUserModelList(writer, reader, clientSocket, userSent);
+                System.out.println("Doing UM_LIST");      // DEBUG
+            } else if (requestType.equals(deleteUser)){
+                deleteUserModel(writer, reader, clientSocket, userSent);
+                System.out.println("Doing DELETE_USER");      // DEBUG
+            } else if (requestType.equals(getUserToModify)){
+                getUserToModify(writer, reader, clientSocket, userSent);
+                System.out.println("Doing GET_USER");      // DEBUG
+            } else if (requestType.equals(createUser)){
+                createUser(writer, reader, clientSocket, userSent);
+                System.out.println("Doing CREATE_USER");      // DEBUG
+            } else if (requestType.equals(modifyUser)){
+                modifyUserModel(writer, reader, clientSocket, userSent);
+                System.out.println("Doing MODIFY_USER");      // DEBUG
             }
             System.out.println(requestType);
 
@@ -135,16 +165,16 @@ public class ClientNet implements Runnable {
             writer.writeObject(login);
             serverAnswer = (ServerAnswer) reader.readObject();
             if (serverAnswer.getType().equals(successAnswer)) {
-                userLogged = (UserModel) reader.readObject();
-                if (userLogged.getDepartment().equals(clientLogged)) {
+                userReceived = (UserModel) reader.readObject();
+                if (userReceived.getDepartment().equals(clientLogged)) {
                     openUserWelcome();
                     client.close();
-                } else if (userLogged.getDepartment().equals(housekeepingLogged) ||
-                        userLogged.getDepartment().equals(maintenanceLogged)) {
+                } else if (userReceived.getDepartment().equals(housekeepingLogged) ||
+                        userReceived.getDepartment().equals(maintenanceLogged)) {
                     roomRequestList = (List<RoomRequest>) reader.readObject();
-                    openWorkerActivity(userLogged);
+                    openWorkerActivity(userReceived);
                     client.close();
-                } else if (userLogged.getDepartment().equals(adminLogged)) {
+                } else if (userReceived.getDepartment().equals(adminLogged)) {
                     openAdminActivity();
                     client.close();
                 }
@@ -226,6 +256,18 @@ public class ClientNet implements Runnable {
         }
     } // endRoomRequest
 
+    private void deleteUserModel(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                                UserModel userToDelete) throws ClassNotFoundException {
+
+        try {
+            writer.writeObject(userToDelete);
+            client.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } // end deleteUserModel
+
 
     private void getRoomRequestList(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
                                     UserModel userLogged) throws ClassNotFoundException {
@@ -240,10 +282,85 @@ public class ClientNet implements Runnable {
         }
     } // end getRoomRequestList
 
+    private void getUserModelList(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                                    UserModel userLogged) throws ClassNotFoundException {
+
+        try {
+            userModelList = (List<UserModel>) reader.readObject();
+            openUserManagerActivity(userLogged);
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } // end getRoomRequestList
+
+    private void getUserToModify(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                                UserModel userToModify) throws ClassNotFoundException {
+
+        try {
+            writer.writeObject(userToModify);
+            userReceived = (UserModel) reader.readObject();
+            openModifyUserActivity(userReceived);
+            client.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } // end modifyUserModel
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createUser(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                            UserModel bornUser) throws Exception {
+
+        bornUser = Utils.encrypt(bornUser);
+        try {
+
+            writer.writeObject(bornUser);
+            serverAnswer = (ServerAnswer) reader.readObject();
+            if (serverAnswer.getType().equals(successAnswer)) {
+                activity.runOnUiThread(new Runnable() {
+                    @SuppressLint("NewApi")
+                    public void run() {
+                        Utils.showCreatedUserToast(activity.getApplicationContext());
+                    }
+                });
+            }
+
+            client.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } // end createUser
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void modifyUserModel(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                            UserModel userToModify) throws Exception {
+
+        userToModify = Utils.encrypt(userToModify);
+        try {
+
+            writer.writeObject(userToModify);
+            serverAnswer = (ServerAnswer) reader.readObject();
+            if (serverAnswer.getType().equals(successAnswer)) {
+                activity.runOnUiThread(new Runnable() {
+                    @SuppressLint("NewApi")
+                    public void run() {
+                        Utils.showModifiedUserToas(activity.getApplicationContext());
+                    }
+                });
+            }
+            client.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } // end modifyUserModel
+
     private void openUserWelcome() {
         Intent intentLogged = new Intent(view.getContext(), UserWelcomeActivity.class);
         // Passing user value to the new activity
-        intentLogged.putExtra("userLogged", userLogged);
+        intentLogged.putExtra("userLogged", userReceived);
         view.getContext().startActivity(intentLogged);
     } // end openUserWelcome
 
@@ -256,12 +373,28 @@ public class ClientNet implements Runnable {
         view.getContext().startActivity(intentLogged);
     } // end openWorkerActivity
 
+    private void openUserManagerActivity(UserModel userLogged) {
+        Intent intentLogged = new Intent(view.getContext(), UserManagerActivity.class);
+        // Passing user value to the new activity
+        intentLogged.putExtra("userLogged", userLogged);
+        ArrayList<UserModel> usersList = new ArrayList<>(userModelList);
+        intentLogged.putExtra("usersList", usersList);
+        view.getContext().startActivity(intentLogged);
+    } // end openUserManagerActivity
+
     private void openAdminActivity() {
         Intent intentLogged = new Intent(view.getContext(), AdminActivity.class);
         // Passing user value to the new activity
-        intentLogged.putExtra("userLogged", userLogged);
+        intentLogged.putExtra("userLogged", userReceived);
         view.getContext().startActivity(intentLogged);
     } // end openAdminActivity
+
+    private void openModifyUserActivity(UserModel userToModify) {
+        Intent intentModifyUser = new Intent(view.getContext(), CreateOrModifyUserActivity.class);
+        // Passing user value to the new activity
+        intentModifyUser.putExtra("userReceived", userReceived);
+        view.getContext().startActivity(intentModifyUser);
+    } // end openModifyUserActivity
 
 
 

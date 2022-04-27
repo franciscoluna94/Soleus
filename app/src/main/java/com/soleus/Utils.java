@@ -21,6 +21,11 @@ public final class Utils {
     private static String severErrorToast = "Este servicio no se encuentra disponible, por favor, contacte con recepción";
     private static String requestSentConfirmation = "Petición enviada";
     private static String requestEndedConfirmation = "Petición terminada";
+    private static String userCreatedConfirmation = "Usuario creado correctamente";
+    private static String emptyFields = "Por favor, rellene todos los campos";
+    private static String wrongLength = "La contraseña 6 carácteres y el usuario 3";
+    private static String wrongDepartment = "Los departamentos válidos son: Client, Housekeeping, Maintenance, Admin";
+    private static String modifiedUser = "Usuario modificado correctamente";
 
     static Cipher cipher;
 
@@ -47,6 +52,26 @@ public final class Utils {
 
     public static void showRequestSentToast(Context context) {
         Toast.makeText(context, requestSentConfirmation, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showCreatedUserToast(Context context) {
+        Toast.makeText(context, userCreatedConfirmation, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showEmptyFieldsToast(Context context) {
+        Toast.makeText(context, emptyFields, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showWrongLengthToast(Context context) {
+        Toast.makeText(context, wrongLength, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showWrongDepartmentToast(Context context) {
+        Toast.makeText(context, wrongDepartment, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showModifiedUserToas(Context context) {
+        Toast.makeText(context, modifiedUser, Toast.LENGTH_SHORT).show();
     }
 
 

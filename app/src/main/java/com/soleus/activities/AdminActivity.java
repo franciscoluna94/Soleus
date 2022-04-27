@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.soleus.R;
 import com.soleus.models.UserModel;
+import com.soleus.net.ClientNet;
 
 public class AdminActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,10 +38,15 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
             case R.id.btnRoomRequestMgmt:
-                Intent openRoomRequestManagement = new Intent(this, RoomRequestManagerActivity.class);
-                openRoomRequestManagement.putExtra("userLogged", userLogged);
-                startActivity(openRoomRequestManagement);
+                Intent openRoomRequestActivity = new Intent(this, RoomRequestManagerActivity.class);
+                openRoomRequestActivity.putExtra("userLogged", userLogged);
+                startActivity(openRoomRequestActivity);
+                break;
+            case R.id.btnUserMgmt:
+                Thread getUsers = new Thread( new ClientNet(userLogged, "GET_UM_LIST", view, this)) ;
+                getUsers.start();
                 break;
         }
     } // end onClick
