@@ -63,6 +63,7 @@ public class ClientNet implements Runnable {
     private final String getUserToModify = "GET_USER";
     private final String createUser = "CREATE_USER";
     private final String modifyUser = "MODIFY_USER";
+    private final String changePassword = "CHANGE_PASSWORD";
 
     /* Related to activities */
     private Activity activity;
@@ -139,6 +140,9 @@ public class ClientNet implements Runnable {
             } else if (requestType.equals(modifyUser)){
                 modifyUserModel(writer, reader, clientSocket, userSent);
                 System.out.println("Doing MODIFY_USER");      // DEBUG
+            } else if (requestType.equals(changePassword)){
+                modifyPassword(writer, reader, clientSocket, userSent);
+                System.out.println("Doing CHANGE_PASS");      // DEBUG
             }
             System.out.println(requestType);
 
@@ -356,6 +360,58 @@ public class ClientNet implements Runnable {
             e.printStackTrace();
         }
     } // end modifyUserModel
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void modifyPassword(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                            UserModel login) throws ClassNotFoundException {
+
+        try {
+            login.setPassword(login.getDepartment());
+            login = Utils.encrypt(login);
+            writer.writeObject(login);
+            serverAnswer = (ServerAnswer) reader.readObject();
+            if (serverAnswer.getType().equals(successAnswer)) {
+                userReceived = (UserModel) reader.readObject();
+                if (userReceived.getDepartment().equals(clientLogged)) {
+                    openUserWelcome();
+                    client.close();
+                } else if (userReceived.getDepartment().equals(housekeepingLogged) ||
+                        userReceived.getDepartment().equals(maintenanceLogged)) {
+                    roomRequestList = (List<RoomRequest>) reader.readObject();
+                    openWorkerActivity(userReceived);
+                    client.close();
+                } else if (userReceived.getDepartment().equals(adminLogged)) {
+                    openAdminActivity();
+                    client.close();
+                }
+
+            } else if (serverAnswer.getType().equals(failedAnswer)) {
+
+                activity.runOnUiThread(new Runnable() {
+                    @SuppressLint("NewApi")
+                    public void run() {
+                        Utils.showWrongUser(activity.getApplicationContext());
+                    }
+                });
+                client.close();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            activity.runOnUiThread(new Runnable() {
+                @SuppressLint("NewApi")
+                public void run() {
+                    Utils.showServerErrorToast(activity.getApplicationContext());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    } // end modifyPassword
+
+
 
     private void openUserWelcome() {
         Intent intentLogged = new Intent(view.getContext(), UserWelcomeActivity.class);

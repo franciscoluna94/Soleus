@@ -2,13 +2,16 @@ package com.soleus;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.soleus.activities.ForgotPasswordActivity;
 import com.soleus.models.UserModel;
 import com.soleus.net.ClientNet;
 
@@ -16,11 +19,12 @@ import com.soleus.net.ClientNet;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     // declaring required variables
-    private EditText textField;
-    private EditText edit2;
-    private Button button;
+    private EditText editUser;
+    private EditText editPassword;
+    private Button btnLogin;
     private UserModel userModel;
-    private String emptyFieldMessage = "Por favor, rellene todos los campos";
+    private TextView txtForgotPassword;
+
 
 
     @Override
@@ -29,24 +33,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         /* Component references */
-        textField = (EditText) findViewById(R.id.editUser);
-        edit2 = (EditText) findViewById(R.id.editPassword);
-        button = (Button) findViewById(R.id.buttonLogin);
+        editUser = (EditText) findViewById(R.id.editUser);
+        editPassword = (EditText) findViewById(R.id.editPassword);
+        btnLogin = (Button) findViewById(R.id.buttonLogin);
+        txtForgotPassword = (TextView) findViewById(R.id.txtForgotPassword);
 
         /* Listeners */
-        button.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
+        txtForgotPassword.setOnClickListener(this);
     } // end onCreate
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void onClick(View view) {
-        String user = textField.getText().toString().trim();
-        String password = edit2.getText().toString().trim();
-        if (TextUtils.isEmpty(user) || TextUtils.isEmpty(password)) {
-            Utils.makeToast(MainActivity.this, emptyFieldMessage);
-        } else {
-            userModel = new UserModel(user, password);
-            Thread login = new Thread( new ClientNet(userModel, "LOGIN", view, this)) ;
-            login.start();
+
+        switch (view.getId()) {
+
+            case R.id.buttonLogin:
+                String user = editUser.getText().toString().trim();
+                String password = editPassword.getText().toString().trim();
+                if (TextUtils.isEmpty(user) || TextUtils.isEmpty(password)) {
+                    Utils.showEmptyFieldsToast(this);
+                } else {
+                    userModel = new UserModel(user, password);
+                    Thread login = new Thread( new ClientNet(userModel, "LOGIN", view, this)) ;
+                    login.start();
+                }
+                break;
+            case R.id.txtForgotPassword:
+                Intent openForgotPassword = new Intent(this, ForgotPasswordActivity.class);
+                startActivity(openForgotPassword);
+                break;
+
         }
+
     } // end onClick
 }

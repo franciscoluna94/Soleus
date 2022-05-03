@@ -23,9 +23,10 @@ public final class Utils {
     private static String requestEndedConfirmation = "Petición terminada";
     private static String userCreatedConfirmation = "Usuario creado correctamente";
     private static String emptyFields = "Por favor, rellene todos los campos";
-    private static String wrongLength = "La contraseña 6 carácteres y el usuario 3";
+    private static String wrongLength = "La contraseña debe tener 6 carácteres";
     private static String wrongDepartment = "Los departamentos válidos son: Client, Housekeeping, Maintenance, Admin";
     private static String modifiedUser = "Usuario modificado correctamente";
+    private static String wrongUser = "Datos incorrectos, por favor, verifique los campos";
 
     static Cipher cipher;
 
@@ -72,6 +73,10 @@ public final class Utils {
 
     public static void showModifiedUserToas(Context context) {
         Toast.makeText(context, modifiedUser, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showWrongUser(Context context) {
+        Toast.makeText(context, wrongUser, Toast.LENGTH_SHORT).show();
     }
 
 

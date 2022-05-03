@@ -12,12 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Soleus">
         <activity
+            android:name=".activities.ForgotPasswordActivity"
+            android:noHistory="true"
+            android:exported="false" />
+        <activity
             android:name=".activities.CreateOrModifyUserActivity"
             android:exported="false" />
         <activity
             android:name=".activities.UserManagerActivity"
             android:exported="false"
-            android:noHistory="true"/>
+            android:noHistory="true" />
         <activity
             android:name=".activities.RoomRequestManagerActivity"
             android:exported="false" />
