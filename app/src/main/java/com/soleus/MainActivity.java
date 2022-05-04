@@ -18,14 +18,11 @@ import com.soleus.net.ClientNet;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    // declaring required variables
     private EditText editUser;
     private EditText editPassword;
     private Button btnLogin;
     private UserModel userModel;
     private TextView txtForgotPassword;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         /* Component references */
-        editUser = (EditText) findViewById(R.id.editUser);
-        editPassword = (EditText) findViewById(R.id.editPassword);
-        btnLogin = (Button) findViewById(R.id.buttonLogin);
-        txtForgotPassword = (TextView) findViewById(R.id.txtForgotPassword);
+        editUser = (EditText) findViewById(R.id.editMainUser);
+        editPassword = (EditText) findViewById(R.id.editMainPassword);
+        btnLogin = (Button) findViewById(R.id.btnMainLogin);
+        txtForgotPassword = (TextView) findViewById(R.id.txtMainForgotPassword);
 
         /* Listeners */
         btnLogin.setOnClickListener(this);
@@ -48,18 +45,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (view.getId()) {
 
-            case R.id.buttonLogin:
+            case R.id.btnMainLogin:
                 String user = editUser.getText().toString().trim();
                 String password = editPassword.getText().toString().trim();
                 if (TextUtils.isEmpty(user) || TextUtils.isEmpty(password)) {
                     Utils.showEmptyFieldsToast(this);
                 } else {
                     userModel = new UserModel(user, password);
-                    Thread login = new Thread( new ClientNet(userModel, "LOGIN", view, this)) ;
+                    Thread login = new Thread( new ClientNet(userModel, getString(R.string.login_Request), view, this)) ;
                     login.start();
                 }
                 break;
-            case R.id.txtForgotPassword:
+            case R.id.txtMainForgotPassword:
                 Intent openForgotPassword = new Intent(this, ForgotPasswordActivity.class);
                 startActivity(openForgotPassword);
                 break;

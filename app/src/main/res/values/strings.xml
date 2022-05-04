@@ -1,5 +1,23 @@
 <resources>
     <string name="app_name">Soleus</string>
+    <string name="logo_description">Logo</string>
+
+    <!-- TextView -->
+    <string name="user_textView">Usuario</string>
+    <string name="password_textView">Contraseña</string>
+
+    <!-- EditText -->
+    <string name="user_editText">Introduzca su usuario</string>
+    <string name="password_editText">Introduzca su contraseña</string>
+
+    <!-- Buttons -->
+    <string name="login_button">Entrar</string>
+    <string name="forgotPassword_button">He olvidado mi contraseña</string>
+
+    <!-- Requests to Server -->
+    <string name="login_Request">LOGIN</string>
+
+
     <string-array name="spinnerHousekeeping1">
         <item>Limpieza</item>
         <item>Baño</item>
