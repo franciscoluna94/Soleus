@@ -4,50 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activities.WorkerActivity">
 
     <TextView
-        android:id="@+id/txtWorkerActivityTitlte"
-        android:layout_width="221dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="172dp"
+        android:id="@+id/txtWorkerTitle"
+        android:layout_width="293dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:background="@color/white"
         android:gravity="center"
-        android:text="Peticiones Activas"
+        android:text="@string/workerTitle_textView"
         android:textAlignment="center"
+        android:textColor="@color/soleus_dark"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/imgWorkerCorner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="407dp"
+        android:id="@+id/recyclerWorker"
+        android:layout_width="wrap_content"
         android:layout_height="586dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/soleus_regular"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWorkerActivityTitlte"
-        app:layout_constraintVertical_bias="0.123" />
+        app:layout_constraintTop_toBottomOf="@+id/txtWorkerTitle" />
 
     <Button
-        android:id="@+id/btnUpdateRequestList"
+        android:id="@+id/btnWorkerUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="26dp"
-        android:text="Actualizar"
-        app:layout_constraintBottom_toTopOf="@+id/recycler"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="135dp"
+        android:backgroundTint="@color/soleus_regular"
+        android:text="@string/worker_button"
+        android:textAllCaps="false"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtWorkerActivityTitlte"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerWorker" />
+
+    <ImageView
+        android:id="@+id/imgWorkerCorner"
+        android:layout_width="117dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/miniLogo_description"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtWorkerTitle"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:srcCompat="@drawable/soleusregular" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

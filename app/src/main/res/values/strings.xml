@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Soleus</string>
     <string name="logo_description">Logo</string>
+    <string name="miniLogo_description">Logo</string>
 
     <!-- TextView -->
     <string name="user_textView">Usuario</string>
@@ -10,12 +11,13 @@
     <string name="forgotPasswordTitle_textView">Complete los datos solicitados para modificar su contraseña</string>
     <string name="welcomeTitle_textView">Bienvenido a la Reserva del Membrillo</string>
     <string name="welcomeSubtitle_textView">Indíquenos qué desea</string>
+    <string name="workerTitle_textView">Peticiones activas</string>
 
 
     <!-- EditText -->
     <string name="user_editText">Usuario</string>
     <string name="password_editText">Contraseña</string>
-    <string name="modifyPassword_editText">Introduzca una nueva contraseña</string>
+    <string name="modifyPassword_editText">Nueva contraseña</string>
     <string name="name_editText">Nombre</string>
 
     <!-- Buttons -->
@@ -24,10 +26,13 @@
     <string name="modifyPassword_button">Modificar contraseña</string>
     <string name="welcomeHousekeeping_button">Contactar con pisos</string>
     <string name="welcomeMaintenance_button">Contactar con mantenimiento</string>
+    <string name="worker_button">Actualizar</string>
 
     <!-- Requests to Server -->
     <string name="login_Request">LOGIN</string>
     <string name="changePassword_Request">CHANGE_PASSWORD</string>
+    <string name="updateRoomRequestList_Request">GET_RR_LIST</string>
+    <string name="endRequest_Request">END_REQUEST</string>
 
 
     <string-array name="spinnerHousekeeping1">

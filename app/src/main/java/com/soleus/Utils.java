@@ -27,6 +27,7 @@ public final class Utils {
     private static String wrongDepartment = "Los departamentos válidos son: Client, Housekeeping, Maintenance, Admin";
     private static String modifiedUser = "Usuario modificado correctamente";
     private static String wrongUser = "Datos incorrectos, por favor, verifique los campos";
+    private static String forbidden = "No tiene permisos para realizar la operación";
 
     static Cipher cipher;
 
@@ -71,12 +72,16 @@ public final class Utils {
         Toast.makeText(context, wrongDepartment, Toast.LENGTH_SHORT).show();
     }
 
-    public static void showModifiedUserToas(Context context) {
+    public static void showModifiedUserToast(Context context) {
         Toast.makeText(context, modifiedUser, Toast.LENGTH_SHORT).show();
     }
 
     public static void showWrongUser(Context context) {
         Toast.makeText(context, wrongUser, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showForbiddenUser(Context context) {
+        Toast.makeText(context, forbidden, Toast.LENGTH_SHORT).show();
     }
 
 

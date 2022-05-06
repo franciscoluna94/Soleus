@@ -80,7 +80,7 @@ public class RoomRequestAdapter extends RecyclerView.Adapter<RoomRequestAdapter.
 
             AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
 
-            builder.setTitle("Petición de la habitación " + txtRoomCard.getText().toString());
+            builder.setTitle("Solicitud de la habitación " + txtRoomCard.getText().toString());
             builder.setItems(itemsContextMenu, (dialog, item) -> {
                 RoomRequest requestToEnd = new RoomRequest(Integer.parseInt(txtIdCard.getText().toString()));
                 Thread endRequest = new Thread( new ClientNet(requestToEnd, "END_REQUEST")) ;

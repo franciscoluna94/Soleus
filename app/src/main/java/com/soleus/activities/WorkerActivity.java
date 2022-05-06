@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TableLayout;
-import android.widget.TextView;
 
 import com.soleus.R;
 import com.soleus.adapters.RoomRequestAdapter;
@@ -17,8 +15,6 @@ import com.soleus.models.RoomRequest;
 import com.soleus.models.UserModel;
 import com.soleus.net.ClientNet;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 public class WorkerActivity extends AppCompatActivity implements View.OnClickListener {
@@ -41,7 +37,7 @@ public class WorkerActivity extends AppCompatActivity implements View.OnClickLis
         Intent intentLogged = getIntent();
         userLogged = (UserModel) intentLogged.getSerializableExtra("userLogged");
         roomRequestList = (List<RoomRequest>) intentLogged.getSerializableExtra("roomRequestList");
-        btnUpdateRequestList = (Button) findViewById(R.id.btnUpdateRequestList);
+        btnUpdateRequestList = (Button) findViewById(R.id.btnWorkerUpdate);
 
         btnUpdateRequestList.setOnClickListener(this);
 
@@ -51,13 +47,14 @@ public class WorkerActivity extends AppCompatActivity implements View.OnClickLis
 
     public void onClick(View view) {
 
-        Thread getRoomRequests = new Thread( new ClientNet(userLogged, "GET_RR_LIST", view, this)) ;
+        Thread getRoomRequests = new Thread( new ClientNet(userLogged,
+                getString(R.string.updateRoomRequestList_Request), view, this)) ;
         getRoomRequests.start();
     } // end onClick
 
     private void initializeElements() {
 
-        recyclerView = findViewById(R.id.recycler);
+        recyclerView = findViewById(R.id.recyclerWorker);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         roomRequestAdapter = new RoomRequestAdapter(roomRequestList, this);

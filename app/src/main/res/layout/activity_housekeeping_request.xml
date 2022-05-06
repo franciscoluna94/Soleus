@@ -63,10 +63,11 @@
         android:ems="10"
         android:hint="Detalles adicionales..."
         android:inputType="textPersonName"
-        android:maxLength="280"
+        android:maxLength="30"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerItem" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerItem"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

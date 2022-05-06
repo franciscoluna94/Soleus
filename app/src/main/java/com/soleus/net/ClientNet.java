@@ -350,7 +350,7 @@ public class ClientNet implements Runnable {
                 activity.runOnUiThread(new Runnable() {
                     @SuppressLint("NewApi")
                     public void run() {
-                        Utils.showModifiedUserToas(activity.getApplicationContext());
+                        Utils.showModifiedUserToast(activity.getApplicationContext());
                     }
                 });
             }
@@ -376,24 +376,33 @@ public class ClientNet implements Runnable {
                 if (userReceived.getDepartment().equals(clientLogged)) {
                     openUserWelcome();
                     client.close();
-                } else if (userReceived.getDepartment().equals(housekeepingLogged) ||
-                        userReceived.getDepartment().equals(maintenanceLogged)) {
-                    roomRequestList = (List<RoomRequest>) reader.readObject();
-                    openWorkerActivity(userReceived);
-                    client.close();
-                } else if (userReceived.getDepartment().equals(adminLogged)) {
-                    openAdminActivity();
-                    client.close();
+                } else {
+                    activity.runOnUiThread(new Runnable() {
+                        @SuppressLint("NewApi")
+                        public void run() {
+                            Utils.showForbiddenUser(activity.getApplicationContext());
+                        }
+                    });
                 }
 
             } else if (serverAnswer.getType().equals(failedAnswer)) {
+                if (serverAnswer.getContent().equals("FORBIDDEN")) {
+                    activity.runOnUiThread(new Runnable() {
+                        @SuppressLint("NewApi")
+                        public void run() {
+                            Utils.showForbiddenUser(activity.getApplicationContext());
+                        }
+                    });
+                } else {
+                    activity.runOnUiThread(new Runnable() {
+                        @SuppressLint("NewApi")
+                        public void run() {
+                            Utils.showWrongUser(activity.getApplicationContext());
+                        }
+                    });
+                }
 
-                activity.runOnUiThread(new Runnable() {
-                    @SuppressLint("NewApi")
-                    public void run() {
-                        Utils.showWrongUser(activity.getApplicationContext());
-                    }
-                });
+
                 client.close();
             }
 
