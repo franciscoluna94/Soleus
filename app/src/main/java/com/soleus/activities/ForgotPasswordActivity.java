@@ -3,7 +3,6 @@ package com.soleus.activities;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.soleus.MainActivity;
 import com.soleus.R;
 import com.soleus.Utils;
 import com.soleus.models.UserModel;
@@ -34,7 +32,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
         editUser = (EditText) findViewById(R.id.editForgotPasswordUser);
         editName = (EditText) findViewById(R.id.editForgotPasswordName);
-        editPassword = (EditText) findViewById(R.id.editForgotPasswordPassowrd);
+        editPassword = (EditText) findViewById(R.id.editForgotPasswordPassword);
         btnSend = (Button) findViewById(R.id.btnForgotPasswordSend);
         btnSend.setOnClickListener(this);
 
@@ -53,7 +51,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
             Utils.showWrongLengthToast(this.getApplicationContext());
         } else {
             userModel = new UserModel(user, name , password);
-            Thread changePassword = new Thread(new ClientNet(userModel, "CHANGE_PASSWORD", view, this));
+            Thread changePassword = new Thread(new ClientNet(userModel, getString(R.string.changePassword_Request), view, this));
             changePassword.start();
         }
 

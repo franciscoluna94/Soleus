@@ -13,7 +13,6 @@ import com.soleus.models.UserModel;
 
 public class UserWelcomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView txtWelcome;
     private Button btnHousekeeping;
     private Button btnMaintenance;
     private UserModel userLogged;
@@ -30,8 +29,8 @@ public class UserWelcomeActivity extends AppCompatActivity implements View.OnCli
         userLogged = (UserModel) intentLogged.getSerializableExtra("userLogged");
 
         /* References to components */
-        btnHousekeeping = (Button) findViewById(R.id.btnHousekeeping);
-        btnMaintenance = (Button) findViewById(R.id.btnMaintenance);
+        btnHousekeeping = (Button) findViewById(R.id.btnWelcomeHkRequest);
+        btnMaintenance = (Button) findViewById(R.id.btnWelcomeMtRequest);
 
         /* Listeners */
         btnHousekeeping.setOnClickListener(this);
@@ -45,12 +44,12 @@ public class UserWelcomeActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.btnHousekeeping:
+            case R.id.btnWelcomeHkRequest:
                 Intent openHousekeepingRequest = new Intent(this, HousekeepingRequestActivity.class);
                 openHousekeepingRequest.putExtra("userLogged", userLogged);
                 startActivity(openHousekeepingRequest);
                 break;
-            case R.id.btnMaintenance:
+            case R.id.btnWelcomeMtRequest:
                 Intent openMaintenanceRequest = new Intent(this, MaintenanceRequestActivity.class);
                 openMaintenanceRequest.putExtra("userLogged", userLogged);
                 startActivity(openMaintenanceRequest);

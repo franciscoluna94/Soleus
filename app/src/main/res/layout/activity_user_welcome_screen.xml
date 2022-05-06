@@ -7,13 +7,15 @@
     tools:context=".activities.UserWelcomeActivity">
 
     <TextView
-        android:id="@+id/txtWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="177dp"
-        android:text="Bienvenidos a Hotel"
+        android:id="@+id/txtWelcomeTitle"
+        android:layout_width="0dp"
+        android:layout_height="49dp"
+        android:background="@drawable/gradient"
+        android:text="@string/welcomeTitle_textView"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textColorLink="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,29 +23,47 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnHousekeeping"
+        android:id="@+id/btnWelcomeHkRequest"
         android:layout_width="190dp"
         android:layout_height="82dp"
         android:layout_marginStart="110dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="111dp"
-        android:text="Solicitar amenities / limpieza"
-        android:textSize="16sp"
+        android:text="@string/welcomeHousekeeping_button"
+        android:textAllCaps="false"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWelcome" />
+        app:layout_constraintTop_toBottomOf="@+id/txtWelcomeSubtitle" />
 
     <Button
-        android:id="@+id/btnMaintenance"
+        android:id="@+id/btnWelcomeMtRequest"
         android:layout_width="190dp"
         android:layout_height="82dp"
         android:layout_marginStart="110dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="111dp"
-        android:text="Contactar mantenimiento"
-        android:textSize="16sp"
+        android:text="@string/welcomeMaintenance_button"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnWelcomeHkRequest" />
+
+    <TextView
+        android:id="@+id/txtWelcomeSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="151dp"
+        android:text="@string/welcomeSubtitle_textView"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnHousekeeping" />
+        app:layout_constraintTop_toBottomOf="@+id/txtWelcomeTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="soleus_regular">#A0C1F8</color>
-    <color name="soleus_dark">#6f91c5</color>
-    <color name="purple_700">#6f91c5</color>
-    <color name="soleus_light">#d3f4ff</color>
+    <color name="soleus_regular">#0d47a1</color>
+    <color name="soleus_dark">#002171</color>
+    <color name="purple_700">#5472d3</color>
+    <color name="soleus_light">#5472d3</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
