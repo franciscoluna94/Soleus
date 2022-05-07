@@ -4,70 +4,98 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_regular"
     tools:context=".activities.HousekeepingRequestActivity">
 
     <TextView
-        android:id="@+id/txtHousekeepingActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="103dp"
-        android:text="Petición Housekeeping"
+        android:id="@+id/txtHKRequestTitle"
+        android:layout_width="293dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/hkRequestTitle_textView"
+        android:textAlignment="center"
+        android:textColor="@color/soleus_dark"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/imgHKRequestCorner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinnerTopic"
-        android:layout_width="356dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="28dp"
+    <ImageView
+        android:id="@+id/imgHKRequestCorner"
+        android:layout_width="117dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/miniLogo_description"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtHousekeepingActivity" />
+        app:layout_constraintStart_toEndOf="@+id/txtHKRequestTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/soleusregular" />
 
-    <Spinner
-        android:id="@+id/spinnerItem"
-        android:layout_width="356dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerTopic" />
 
-    <Button
-        android:id="@+id/buttonSendHousekeeping"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="161dp"
-        android:text="Enviar"
+    <LinearLayout
+        android:id="@+id/linearWelcome"
+        android:layout_width="368dp"
+        android:layout_height="310dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/linearbg"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editHousekeepingDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/txtHKRequestTitle">
 
-    <EditText
-        android:id="@+id/editHousekeepingDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="101dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="101dp"
-        android:ems="10"
-        android:hint="Detalles adicionales..."
-        android:inputType="textPersonName"
-        android:maxLength="30"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerItem"
-        />
+        <Spinner
+            android:id="@+id/spinnerHKRequestTopic"
+            android:layout_width="308dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:contentDescription="@string/roomRequestTopic_description"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Spinner
+            android:id="@+id/spinnerHKRequestItem"
+            android:layout_width="308dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/roomRequestItem_description"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/editHKRequestDescription"
+            android:layout_width="308dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="@string/roomRequestDetails_editText"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:minLines="1"
+            android:textColor="@color/soleus_dark"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnHKRequestSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:text="@string/roomRequestSend_button"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

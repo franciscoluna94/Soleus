@@ -5,16 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
 import com.soleus.R;
 import com.soleus.models.UserModel;
 
 public class UserWelcomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnHousekeeping;
-    private Button btnMaintenance;
     private UserModel userLogged;
 
 
@@ -29,8 +26,8 @@ public class UserWelcomeActivity extends AppCompatActivity implements View.OnCli
         userLogged = (UserModel) intentLogged.getSerializableExtra("userLogged");
 
         /* References to components */
-        btnHousekeeping = (Button) findViewById(R.id.btnWelcomeHkRequest);
-        btnMaintenance = (Button) findViewById(R.id.btnWelcomeMtRequest);
+        ImageButton btnHousekeeping = findViewById(R.id.btnWelcomeHkRequest);
+        ImageButton btnMaintenance = findViewById(R.id.btnWelcomeMtRequest);
 
         /* Listeners */
         btnHousekeeping.setOnClickListener(this);

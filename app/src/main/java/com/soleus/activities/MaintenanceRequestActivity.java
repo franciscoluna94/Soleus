@@ -22,8 +22,6 @@ public class MaintenanceRequestActivity extends AppCompatActivity implements Vie
     private Spinner spinnerTopic;
     private Spinner spinnerItem;
     private EditText editDescription;
-    private Button buttonSendMaintenance;
-    private RoomRequest roomRequest;
     ArrayAdapter<String> topicSpinnerAdapter;
     ArrayAdapter<String> lightingSpinnerAdapter;
     ArrayAdapter<String> televisionSpinnerAdapter;
@@ -46,31 +44,31 @@ public class MaintenanceRequestActivity extends AppCompatActivity implements Vie
 
 
         /* References to components */
-        editDescription = (EditText) findViewById(R.id.editMaintenanceDescription);
-        spinnerTopic = (Spinner) findViewById(R.id.spinnerTopicMaintenance);
-        spinnerItem = (Spinner) findViewById(R.id.spinnerItemMaintenance);
-        buttonSendMaintenance = (Button) findViewById(R.id.buttonsendMaintenance);
+        editDescription = findViewById(R.id.editMTRequestDescription);
+        spinnerTopic = findViewById(R.id.spinnerMTRequestTopic);
+        spinnerItem = findViewById(R.id.spinnerMTRequestItem);
+        Button buttonSendMaintenance = findViewById(R.id.btnMTRequestSend);
 
         /* Listeners*/
         buttonSendMaintenance.setOnClickListener(this);
 
         /* Populating the topic Spinner */
-        topicSpinnerAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, topics);
+        topicSpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.spinners, topics);
         topicSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTopic.setAdapter(topicSpinnerAdapter);
 
         /* Preparing adapters to be used by item spinner on onItemSelected() */
-        lightingSpinnerAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item,lightingSpinnerContent);
+        lightingSpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.spinners, lightingSpinnerContent);
         lightingSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        televisionSpinnerAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, televisionSpinnerContent);
+        televisionSpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.spinners, televisionSpinnerContent);
         televisionSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        bathroomSpinnerAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, bathroomSpinnerContent);
+        bathroomSpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.spinners, bathroomSpinnerContent);
         bathroomSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Populates the items spinner based on the topic selected on the first spinner */
@@ -99,11 +97,11 @@ public class MaintenanceRequestActivity extends AppCompatActivity implements Vie
     public void onClick(View view) {
 
 
-        roomRequest = new RoomRequest(spinnerTopic.getSelectedItem().toString(),
+        RoomRequest roomRequest = new RoomRequest(spinnerTopic.getSelectedItem().toString(),
                 spinnerItem.getSelectedItem().toString(),
-                editDescription.getText().toString(), "MAINTENANCE",
+                editDescription.getText().toString(), getString(R.string.maintenance),
                 userLogged.getUser());
-        Thread sendMaintenanceRequest = new Thread( new ClientNet(roomRequest, "ROOM_REQUEST", this));
+        Thread sendMaintenanceRequest = new Thread( new ClientNet(roomRequest, getString(R.string.sendRoomRequest_Request), this));
         sendMaintenanceRequest.start();
 
     } // end OnClick

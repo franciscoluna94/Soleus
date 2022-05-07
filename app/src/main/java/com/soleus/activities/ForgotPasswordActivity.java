@@ -22,18 +22,16 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     private EditText editUser;
     private EditText editName;
     private EditText editPassword;
-    private Button btnSend;
-    private UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        editUser = (EditText) findViewById(R.id.editForgotPasswordUser);
-        editName = (EditText) findViewById(R.id.editForgotPasswordName);
-        editPassword = (EditText) findViewById(R.id.editForgotPasswordPassword);
-        btnSend = (Button) findViewById(R.id.btnForgotPasswordSend);
+        editUser = findViewById(R.id.editForgotPasswordUser);
+        editName = findViewById(R.id.editForgotPasswordName);
+        editPassword = findViewById(R.id.editForgotPasswordPassword);
+        Button btnSend = findViewById(R.id.btnForgotPasswordSend);
         btnSend.setOnClickListener(this);
 
     } //end onCreate
@@ -50,7 +48,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         } else if (password.length() != 6) {
             Utils.showWrongLengthToast(this.getApplicationContext());
         } else {
-            userModel = new UserModel(user, name , password);
+            UserModel userModel = new UserModel(user, name, password);
             Thread changePassword = new Thread(new ClientNet(userModel, getString(R.string.changePassword_Request), view, this));
             changePassword.start();
         }

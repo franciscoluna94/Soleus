@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Soleus</string>
-    <string name="logo_description">Logo</string>
-    <string name="miniLogo_description">Logo</string>
+
+
 
     <!-- TextView -->
     <string name="user_textView">Usuario</string>
@@ -9,9 +9,11 @@
     <string name="name_textView">Nombre</string>
     <string name="newPassword_textView">Nueva Contraseña</string>
     <string name="forgotPasswordTitle_textView">Complete los datos solicitados para modificar su contraseña</string>
-    <string name="welcomeTitle_textView">Bienvenido a la Reserva del Membrillo</string>
-    <string name="welcomeSubtitle_textView">Indíquenos qué desea</string>
+    <string name="welcomeTitle_textView">Bienvenido al hotel</string>
+    <string name="welcomeSubtitle_textView">¿Con qué departamento quiere contactar?</string>
     <string name="workerTitle_textView">Peticiones activas</string>
+    <string name="hkRequestTitle_textView">Petición a pisos</string>
+    <string name="mtRequestTitle_textView">Petición a mantenimiento</string>
 
 
     <!-- EditText -->
@@ -19,6 +21,7 @@
     <string name="password_editText">Contraseña</string>
     <string name="modifyPassword_editText">Nueva contraseña</string>
     <string name="name_editText">Nombre</string>
+    <string name="roomRequestDetails_editText">Detalles adicionales</string>
 
     <!-- Buttons -->
     <string name="login_button">Entrar</string>
@@ -27,14 +30,29 @@
     <string name="welcomeHousekeeping_button">Contactar con pisos</string>
     <string name="welcomeMaintenance_button">Contactar con mantenimiento</string>
     <string name="worker_button">Actualizar</string>
+    <string name="roomRequestSend_button">Enviar</string>
 
     <!-- Requests to Server -->
     <string name="login_Request">LOGIN</string>
     <string name="changePassword_Request">CHANGE_PASSWORD</string>
     <string name="updateRoomRequestList_Request">GET_RR_LIST</string>
     <string name="endRequest_Request">END_REQUEST</string>
+    <string name="sendRoomRequest_Request">ROOM_REQUEST</string>
 
 
+    <!-- Content Descriptions -->
+    <string name="logo_description">Logo</string>
+    <string name="miniLogo_description">Logo</string>
+    <string name="housekeepingButton_description">Pisos</string>
+    <string name="maintenanceButton_description">Mantenimiento</string>
+    <string name="roomRequestTopic_description">Asunto</string>
+    <string name="roomRequestItem_description">Petición</string>
+
+    <!-- Departments -->
+    <string name="housekeeping">HOUSEKEEPING</string>
+    <string name="maintenance">MAINTENANCE</string>
+
+    <!-- Arrays -->
     <string-array name="spinnerHousekeeping1">
         <item>Limpieza</item>
         <item>Baño</item>
@@ -46,7 +64,7 @@
     <string-array name="spinnerBathroomHousekeeping">
         <item>Toalla rostro</item>
         <item>Toalla baño</item>
-        <item>Cepillo de dientes</item>
+        <item>Kit Dental</item>
         <item>Jabón</item>
         <item>Gel y champú</item>
     </string-array>
@@ -61,24 +79,16 @@
     </string-array>
     <string-array name="spinnerLighting">
         <item>Cambio bombilla</item>
-        <item>Fallo electricidad</item>
+        <item>Fallo eléctrico</item>
     </string-array>
     <string-array name="spinnerTelevision">
         <item>Problemas con el televisor</item>
+        <item>Problemas con el mando</item>
     </string-array>
     <string-array name="spinnerBathroomMaintenance">
         <item>Bañera</item>
         <item>Ducha</item>
         <item>Corte del agua</item>
     </string-array>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
 
 </resources>

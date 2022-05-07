@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_regular"
     tools:context=".activities.UserWelcomeActivity">
 
     <TextView
@@ -33,48 +34,54 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/soleusregular" />
 
-    <Button
-        android:id="@+id/btnWelcomeHkRequest"
-        android:layout_width="190dp"
-        android:layout_height="82dp"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="111dp"
-        android:text="@string/welcomeHousekeeping_button"
-        android:textAllCaps="false"
-        android:textSize="20sp"
+    <LinearLayout
+        android:id="@+id/linearWelcome"
+        android:layout_width="351dp"
+        android:layout_height="457dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/linearbg"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWelcomeSubtitle" />
+        app:layout_constraintTop_toBottomOf="@+id/txtWelcomeTitle">
 
-    <Button
-        android:id="@+id/btnWelcomeMtRequest"
-        android:layout_width="190dp"
-        android:layout_height="82dp"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="111dp"
-        android:text="@string/welcomeMaintenance_button"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnWelcomeHkRequest" />
 
-    <TextView
-        android:id="@+id/txtWelcomeSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="63dp"
-        android:layout_marginEnd="151dp"
-        android:text="@string/welcomeSubtitle_textView"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWelcomeTitle" />
+        <TextView
+            android:id="@+id/txtWelcomeSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:text="@string/welcomeSubtitle_textView"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btnWelcomeHkRequest"
+            android:layout_width="255dp"
+            android:layout_height="142dp"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/soleus_dark"
+            android:contentDescription="@string/housekeepingButton_description"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/hk2button" />
+
+        <ImageButton
+            android:id="@+id/btnWelcomeMtRequest"
+            android:layout_width="255dp"
+            android:layout_height="142dp"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/soleus_dark"
+            android:contentDescription="@string/maintenanceButton_description"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/mt2button" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

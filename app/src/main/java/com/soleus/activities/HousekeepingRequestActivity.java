@@ -22,8 +22,6 @@ public class HousekeepingRequestActivity extends AppCompatActivity implements Vi
     private Spinner spinnerTopic;
     private Spinner spinnerItem;
     private EditText editDescription;
-    private Button buttonSendHousekeeping;
-    private RoomRequest roomRequest;
     ArrayAdapter<String> topicSpinnerAdapter;
     ArrayAdapter<String> bedSpinnerAdapter;
     ArrayAdapter<String> bathroomSpinnerAdapter;
@@ -47,31 +45,31 @@ public class HousekeepingRequestActivity extends AppCompatActivity implements Vi
         String[] bathroomSpinnerContent = getResources().getStringArray(R.array.spinnerBathroomHousekeeping);
 
         /* References to components */
-        editDescription = (EditText) findViewById(R.id.editHousekeepingDescription);
-        spinnerTopic = (Spinner) findViewById(R.id.spinnerTopic);
-        spinnerItem = (Spinner) findViewById(R.id.spinnerItem);
-        buttonSendHousekeeping = (Button) findViewById(R.id.buttonSendHousekeeping);
+        editDescription = findViewById(R.id.editHKRequestDescription);
+        spinnerTopic = findViewById(R.id.spinnerHKRequestTopic);
+        spinnerItem = findViewById(R.id.spinnerHKRequestItem);
+        Button buttonSendHousekeeping = findViewById(R.id.btnHKRequestSend);
 
         /* Listeners*/
         buttonSendHousekeeping.setOnClickListener(this);
 
         /* Populating the topic Spinner */
-        topicSpinnerAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, topics);
+        topicSpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.spinners, topics);
         topicSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTopic.setAdapter(topicSpinnerAdapter);
 
         /* Preparing adapters to be used by item spinner on onItemSelected() */
-        cleaningSpinnerAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, cleaningSpinnerContent);
+        cleaningSpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.spinners, cleaningSpinnerContent);
         cleaningSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        bedSpinnerAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, bedSpinnerContent);
+        bedSpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.spinners, bedSpinnerContent);
         bedSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        bathroomSpinnerAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, bathroomSpinnerContent);
+        bathroomSpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.spinners, bathroomSpinnerContent);
         bathroomSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Populates the items spinner based on the topic selected on the first spinner */
@@ -99,11 +97,11 @@ public class HousekeepingRequestActivity extends AppCompatActivity implements Vi
 
     public void onClick(View view) {
 
-        roomRequest = new RoomRequest(spinnerTopic.getSelectedItem().toString(),
+        RoomRequest roomRequest = new RoomRequest(spinnerTopic.getSelectedItem().toString(),
                 spinnerItem.getSelectedItem().toString(),
-                editDescription.getText().toString(), "HOUSEKEEPING",
+                editDescription.getText().toString(), getString(R.string.housekeeping),
                 userLogged.getUser());
-        Thread sendHousekeepingRequest = new Thread( new ClientNet(roomRequest, "ROOM_REQUEST", this));
+        Thread sendHousekeepingRequest = new Thread( new ClientNet(roomRequest, getString(R.string.sendRoomRequest_Request), this));
         sendHousekeepingRequest.start();
 
         } // end OnClick

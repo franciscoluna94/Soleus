@@ -20,9 +20,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText editUser;
     private EditText editPassword;
-    private Button btnLogin;
-    private UserModel userModel;
-    private TextView txtForgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +27,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         /* Component references */
-        editUser = (EditText) findViewById(R.id.editMainUser);
-        editPassword = (EditText) findViewById(R.id.editMainPassword);
-        btnLogin = (Button) findViewById(R.id.btnMainLogin);
-        txtForgotPassword = (TextView) findViewById(R.id.txtMainForgotPassword);
+        editUser = findViewById(R.id.editMainUser);
+        editPassword = findViewById(R.id.editMainPassword);
+        Button btnLogin = findViewById(R.id.btnMainLogin);
+        TextView txtForgotPassword = findViewById(R.id.txtMainForgotPassword);
 
         /* Listeners */
         btnLogin.setOnClickListener(this);
@@ -51,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (TextUtils.isEmpty(user) || TextUtils.isEmpty(password)) {
                     Utils.showEmptyFieldsToast(this);
                 } else {
-                    userModel = new UserModel(user, password);
+                    UserModel userModel = new UserModel(user, password);
                     Thread login = new Thread( new ClientNet(userModel, getString(R.string.login_Request), view, this)) ;
                     login.start();
                 }
