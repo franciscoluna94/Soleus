@@ -2,7 +2,6 @@
     <string name="app_name">Soleus</string>
 
 
-
     <!-- TextView -->
     <string name="user_textView">Usuario</string>
     <string name="password_textView">Contraseña</string>
@@ -14,6 +13,14 @@
     <string name="workerTitle_textView">Peticiones activas</string>
     <string name="hkRequestTitle_textView">Petición a pisos</string>
     <string name="mtRequestTitle_textView">Petición a mantenimiento</string>
+    <string name="adminTitle_textView">Gestión</string>
+    <string name="adminSubtitle_textView">¿Qué desea gestionar?</string>
+    <string name="userManagerTitle_textView">Usuarios</string>
+    <string name="userCardTitle_textView">Usuario</string>
+    <string name="nameCardTitle_textView">Nombre</string>
+    <string name="departmentCardTitle_textView">Departamento</string>
+    <string name="createUserTitle_textView">Gestión de usuarios</string>
+    <string name="RoomRequestListTitle_textView">Peticiones</string>
 
 
     <!-- EditText -->
@@ -22,6 +29,9 @@
     <string name="modifyPassword_editText">Nueva contraseña</string>
     <string name="name_editText">Nombre</string>
     <string name="roomRequestDetails_editText">Detalles adicionales</string>
+    <string name="createUserUser_editText">Nuevo usuario</string>
+    <string name="createUserName_editText">Nuevo nombre</string>
+    <string name="createUserDepartment_editText">Departamento</string>
 
     <!-- Buttons -->
     <string name="login_button">Entrar</string>
@@ -31,6 +41,9 @@
     <string name="welcomeMaintenance_button">Contactar con mantenimiento</string>
     <string name="worker_button">Actualizar</string>
     <string name="roomRequestSend_button">Enviar</string>
+    <string name="createUser_button">Enviar</string>
+    <string name="filterRoomRequest_button">Filtrar</string>
+    <string name="getRoomRequestList_button">Lista</string>
 
     <!-- Requests to Server -->
     <string name="login_Request">LOGIN</string>
@@ -38,6 +51,10 @@
     <string name="updateRoomRequestList_Request">GET_RR_LIST</string>
     <string name="endRequest_Request">END_REQUEST</string>
     <string name="sendRoomRequest_Request">ROOM_REQUEST</string>
+    <string name="getUsersList_Request">GET_UM_LIST</string>
+    <string name="createUser_Request">CREATE_USER</string>
+    <string name="modifyUser_Request">MODIFY_USER</string>
+    <string name="filterRoomRequestList_Request">GET_FILTER_RR</string>
 
 
     <!-- Content Descriptions -->
@@ -47,10 +64,20 @@
     <string name="maintenanceButton_description">Mantenimiento</string>
     <string name="roomRequestTopic_description">Asunto</string>
     <string name="roomRequestItem_description">Petición</string>
+    <string name="AdminRoomRequestButton_description">Botón de administración de peticiones</string>
+    <string name="AdminUsersButton_description">Botón de administración de usuarios</string>
+    <string name="AdminRoomRequestListButton_description">Obtener lista de peticiones</string>
+    <string name="AdminRoomRequestCreateButton_description">Crear petición</string>
+    <string name="AdminCreateUserButton_description">Crear usuario</string>
+    <string name="AdminUsersListButton_description">Ver usuarios</string>
+    <string name="AdminCreateHkRequest_description">Crear petición a pisos</string>
+    <string name="AdminCreateMtRequest_description">Crear petición a mantenimiento</string>
 
     <!-- Departments -->
     <string name="housekeeping">HOUSEKEEPING</string>
     <string name="maintenance">MAINTENANCE</string>
+    <string name="client">CLIENT</string>
+    <string name="admin">ADMIN</string>
 
     <!-- Arrays -->
     <string-array name="spinnerHousekeeping1">
@@ -89,6 +116,24 @@
         <item>Bañera</item>
         <item>Ducha</item>
         <item>Corte del agua</item>
+    </string-array>
+    <string-array name="spinnerFilter">
+        <item>Almohada extra</item>
+        <item>Bañera</item>
+        <item>Cambio bombilla</item>
+        <item>Cambio de sábanas</item>
+        <item>Corte del agua</item>
+        <item>Ducha</item>
+        <item>Fallo eléctrico</item>
+        <item>Gel y champú</item>
+        <item>Iluminación</item>
+        <item>Jabón</item>
+        <item>Kit Dental</item>
+        <item>Limpieza</item>
+        <item>Problemas con el televisor</item>
+        <item>Problemas con el mando</item>
+        <item>Toalla baño</item>
+        <item>Toalla rostro</item>
     </string-array>
 
 </resources>

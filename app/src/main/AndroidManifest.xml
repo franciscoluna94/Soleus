@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Soleus" >
         <activity
+            android:name=".activities.FilteredRoomRequestList"
+            android:exported="false"
+            android:noHistory="true"/>
+        <activity
             android:name=".activities.ForgotPasswordActivity"
             android:exported="false"
             android:noHistory="true" />
@@ -43,7 +47,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

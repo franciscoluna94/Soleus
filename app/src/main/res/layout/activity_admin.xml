@@ -4,32 +4,203 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_regular"
     tools:context=".activities.AdminActivity">
 
-    <Button
-        android:id="@+id/btnRoomRequestMgmt"
-        android:layout_width="113dp"
-        android:layout_height="116dp"
-        android:layout_marginStart="77dp"
-        android:layout_marginTop="307dp"
-        android:layout_marginEnd="61dp"
-        android:layout_marginBottom="308dp"
-        android:text="Peticiones"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnUserMgmt"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnUserMgmt"
-        android:layout_width="113dp"
-        android:layout_height="116dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="307dp"
-        android:layout_marginBottom="308dp"
-        android:text="Usuarios"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/txtAdminTitle"
+        android:layout_width="293dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/adminTitle_textView"
+        android:textAlignment="center"
+        android:textColor="@color/soleus_dark"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/imgAdminCorner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgAdminCorner"
+        android:layout_width="117dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/miniLogo_description"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtAdminTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/soleusregular" />
+
+    <LinearLayout
+        android:id="@+id/linearAdmin"
+        android:layout_width="358dp"
+        android:layout_height="226dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/linearbg"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAdminTitle">
+
+
+        <TextView
+            android:id="@+id/txtAminSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:text="@string/adminSubtitle_textView"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linearAdminTopic"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnAdminUsers"
+                android:layout_width="156dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/soleus_dark"
+                android:contentDescription="@string/AdminUsersButton_description"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/adminusersbutton" />
+
+            <ImageButton
+                android:id="@+id/btnAdminRequests"
+                android:layout_width="156dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/soleus_dark"
+                android:contentDescription="@string/AdminRoomRequestButton_description"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/adminrequestsbutton" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearAdminRequests"
+        android:layout_width="358dp"
+        android:layout_height="151dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="25dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearAdmin"
+        android:visibility="invisible">
+
+        <ImageButton
+            android:id="@+id/btnAdminRequestCreate"
+            android:layout_width="156dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/soleus_dark"
+            android:contentDescription="@string/AdminRoomRequestCreateButton_description"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/adminrequestscreatebutton" />
+
+        <ImageButton
+            android:id="@+id/btnAdminRequestList"
+            android:layout_width="156dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/soleus_dark"
+            android:contentDescription="@string/AdminRoomRequestListButton_description"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/adminseereuqestsbutton" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearAdminUsers"
+        android:layout_width="358dp"
+        android:layout_height="151dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="25dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearAdmin">
+
+        <ImageButton
+            android:id="@+id/btnAdminUsersCreate"
+            android:layout_width="156dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/soleus_dark"
+            android:contentDescription="@string/AdminCreateUserButton_description"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/adninusersnewbutton" />
+
+        <ImageButton
+            android:id="@+id/btnAdminUsersList"
+            android:layout_width="156dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/soleus_dark"
+            android:contentDescription="@string/AdminUsersListButton_description"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/adminuserslistbutton" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearRequestsSub"
+        android:layout_width="358dp"
+        android:layout_height="151dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/linearbgbottomradius"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearAdminRequests">
+
+        <ImageButton
+            android:id="@+id/btnAdminCreateHk"
+            android:layout_width="156dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/soleus_dark"
+            android:contentDescription="@string/AdminCreateHkRequest_description"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/adminhkbutton" />
+
+        <ImageButton
+            android:id="@+id/btnAdminCreateMt"
+            android:layout_width="156dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/soleus_dark"
+            android:contentDescription="@string/AdminCreateMtRequest_description"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/adminmtbutton" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

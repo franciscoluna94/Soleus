@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi;
 import com.soleus.Utils;
 import com.soleus.activities.AdminActivity;
 import com.soleus.activities.CreateOrModifyUserActivity;
+import com.soleus.activities.FilteredRoomRequestList;
 import com.soleus.activities.UserManagerActivity;
 import com.soleus.activities.UserWelcomeActivity;
 import com.soleus.activities.WorkerActivity;
@@ -64,6 +65,7 @@ public class ClientNet implements Runnable {
     private final String createUser = "CREATE_USER";
     private final String modifyUser = "MODIFY_USER";
     private final String changePassword = "CHANGE_PASSWORD";
+    private final String filterRoomRequestList = "GET_FILTER_RR";
 
     /* Related to activities */
     private Activity activity;
@@ -94,6 +96,12 @@ public class ClientNet implements Runnable {
         this.view = view;
     }
 
+    public ClientNet(RoomRequest filter, UserModel userSent, String requestType, View view) {
+        this.roomRequest = filter;
+        this.requestType = requestType;
+        this.view = view;
+        this.userSent = userSent;
+    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -143,6 +151,9 @@ public class ClientNet implements Runnable {
             } else if (requestType.equals(changePassword)){
                 modifyPassword(writer, reader, clientSocket, userSent);
                 System.out.println("Doing CHANGE_PASS");      // DEBUG
+            } else if (requestType.equals(filterRoomRequestList)){
+                getFilterRoomRequestList(writer, reader, clientSocket, roomRequest, userSent);
+                System.out.println("Doing FILTER");      // DEBUG
             }
             System.out.println(requestType);
 
@@ -286,6 +297,19 @@ public class ClientNet implements Runnable {
         }
     } // end getRoomRequestList
 
+    private void getFilterRoomRequestList(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
+                                    RoomRequest filter, UserModel userLogged) throws ClassNotFoundException {
+
+        try {
+            writer.writeObject(filter);
+            roomRequestList = (List<RoomRequest>) reader.readObject();
+            openRoomRequestFilter(userLogged);
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } // end getRoomRequestList
+
     private void getUserModelList(ObjectOutputStream writer, ObjectInputStream reader, Socket client,
                                     UserModel userLogged) throws ClassNotFoundException {
 
@@ -421,6 +445,15 @@ public class ClientNet implements Runnable {
     } // end modifyPassword
 
 
+
+    private void openRoomRequestFilter(UserModel userLogged) {
+        Intent filteredRoomRequests = new Intent(view.getContext(), FilteredRoomRequestList.class);
+        ArrayList<RoomRequest> pendingRequests = new ArrayList<>(roomRequestList);
+        filteredRoomRequests.putExtra("roomRequestList", pendingRequests);
+        filteredRoomRequests.putExtra("filter", roomRequest);
+        filteredRoomRequests.putExtra("userLogged", userLogged);
+        view.getContext().startActivity(filteredRoomRequests);
+    } // end openWorkerActivity
 
     private void openUserWelcome() {
         Intent intentLogged = new Intent(view.getContext(), UserWelcomeActivity.class);

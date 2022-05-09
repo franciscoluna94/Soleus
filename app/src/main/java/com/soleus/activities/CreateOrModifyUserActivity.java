@@ -1,33 +1,29 @@
 package com.soleus.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.soleus.R;
 import com.soleus.Utils;
 import com.soleus.models.UserModel;
 import com.soleus.net.ClientNet;
 
+import java.util.Locale;
+
 public class CreateOrModifyUserActivity extends AppCompatActivity implements View.OnClickListener {
 
     private UserModel userToModify;
-    private Button btnSendUserAdmin;
     private EditText editUserAdminActivity;
     private EditText editPasswordAdminActivity;
     private EditText editNameAdminActivity;
     private EditText editDepartmentAdminActivity;
     private boolean create;
-    private String clientDepartment = "CLIENT";
-    private String hkDepartment = "HOUSEKEEPING";
-    private String mtDepartment = "MAINTENANCE";
-    private String adminDepartment = "ADMIN";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +37,11 @@ public class CreateOrModifyUserActivity extends AppCompatActivity implements Vie
         userToModify = (UserModel) intentLogged.getSerializableExtra("userReceived");
 
         /* References to components */
-        btnSendUserAdmin = (Button) findViewById(R.id.btnSendAdminActivity);
-        editUserAdminActivity = (EditText) findViewById(R.id.editUserAdminActivity);
-        editPasswordAdminActivity = (EditText) findViewById(R.id.editPasswordAdminActivity);
-        editNameAdminActivity = (EditText) findViewById(R.id.editNameAdminActivity);
-        editDepartmentAdminActivity = (EditText) findViewById(R.id.editDepartmentAdminActivity);
+        Button btnSendUserAdmin = findViewById(R.id.btnSendAdminActivity);
+        editUserAdminActivity = findViewById(R.id.editUserAdminActivity);
+        editPasswordAdminActivity = findViewById(R.id.editPasswordAdminActivity);
+        editNameAdminActivity = findViewById(R.id.editNameAdminActivity);
+        editDepartmentAdminActivity = findViewById(R.id.editDepartmentAdminActivity);
 
         btnSendUserAdmin.setOnClickListener(this);
 
@@ -62,14 +58,14 @@ public class CreateOrModifyUserActivity extends AppCompatActivity implements Vie
     public void onClick(View view) {
         UserModel userToSend = new UserModel(editUserAdminActivity.getText().toString(),
                 editPasswordAdminActivity.getText().toString(),
-                editNameAdminActivity.getText().toString(),
+                editNameAdminActivity.getText().toString().toUpperCase(Locale.ROOT),
                 editDepartmentAdminActivity.getText().toString());
         if (checkFields()) {
             if (create) {
-                Thread createUser = new Thread(new ClientNet(userToSend, "CREATE_USER", view, this));
+                Thread createUser = new Thread(new ClientNet(userToSend, getString(R.string.createUser_Request), view, this));
                 createUser.start();
             } else {
-                Thread modifyUser = new Thread(new ClientNet(userToSend, "MODIFY_USER", view, this));
+                Thread modifyUser = new Thread(new ClientNet(userToSend, getString(R.string.modifyUser_Request), view, this));
                 modifyUser.start();
             }
             userToModify = null;
@@ -83,6 +79,10 @@ public class CreateOrModifyUserActivity extends AppCompatActivity implements Vie
         String password = editPasswordAdminActivity.getText().toString().trim();
         String name = editNameAdminActivity.getText().toString().trim();
         String department = editDepartmentAdminActivity.getText().toString().trim();
+        String clientDepartment = getString(R.string.client);
+        String hkDepartment = getString(R.string.housekeeping);
+        String mtDepartment = getString(R.string.maintenance);
+        String adminDepartment = getString(R.string.admin);
         if (user.equals("") ||password.equals("") || name.equals("") || department.equals("")) {
             Utils.showEmptyFieldsToast(this.getApplicationContext());
             return false;

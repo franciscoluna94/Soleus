@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_regular"
+    tools:context=".activities.FilteredRoomRequestList">
+
+    <TextView
+        android:id="@+id/txtFilteredListTitle"
+        android:layout_width="293dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/workerTitle_textView"
+        android:textAlignment="center"
+        android:textColor="@color/soleus_dark"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/imgFilteredListCorner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgFilteredListCorner"
+        android:layout_width="117dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/miniLogo_description"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtFilteredListTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/soleusregular" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="548dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFilteredListTitle" />
+
+    <Button
+        android:id="@+id/btnFilterUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="135dp"
+        android:backgroundTint="@color/soleus_dark"
+        android:text="@string/worker_button"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycleFilter" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

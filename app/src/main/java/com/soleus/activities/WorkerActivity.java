@@ -25,7 +25,6 @@ public class WorkerActivity extends AppCompatActivity implements View.OnClickLis
 
     private UserModel userLogged;
     private List<RoomRequest> roomRequestList;
-    private Button btnUpdateRequestList;
 
 
     @Override
@@ -37,7 +36,7 @@ public class WorkerActivity extends AppCompatActivity implements View.OnClickLis
         Intent intentLogged = getIntent();
         userLogged = (UserModel) intentLogged.getSerializableExtra("userLogged");
         roomRequestList = (List<RoomRequest>) intentLogged.getSerializableExtra("roomRequestList");
-        btnUpdateRequestList = (Button) findViewById(R.id.btnWorkerUpdate);
+        Button btnUpdateRequestList = findViewById(R.id.btnWorkerUpdate);
 
         btnUpdateRequestList.setOnClickListener(this);
 

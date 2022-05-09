@@ -4,43 +4,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_regular"
     tools:context=".activities.UserManagerActivity">
 
-    <Button
-        android:id="@+id/btnCreateUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
-        android:text="Crear"
+
+    <TextView
+        android:id="@+id/txtUserManagerTitle"
+        android:layout_width="293dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/userManagerTitle_textView"
+        android:textAlignment="center"
+        android:textColor="@color/soleus_dark"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/imgUserListCorner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imgUserListCorner"
+        android:layout_width="117dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/miniLogo_description"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtUserManagerTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/soleusregular" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userRecycler"
-        android:layout_width="409dp"
-        android:layout_height="653dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
+        android:layout_width="wrap_content"
+        android:layout_height="548dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCreateUser" />
+        app:layout_constraintTop_toBottomOf="@+id/txtUserManagerTitle" />
 
     <Button
         android:id="@+id/btnUpdateUserManager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="133dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="13dp"
-        android:layout_marginBottom="1dp"
-        android:text="Actualizar"
-        app:layout_constraintBottom_toTopOf="@+id/userRecycler"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="135dp"
+        android:backgroundTint="@color/soleus_dark"
+        android:text="@string/worker_button"
+        android:textAllCaps="false"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/btnCreateUser"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userRecycler" />
+
+    <LinearLayout
+        android:layout_width="364dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserManagerTitle">
+
+        <TextView
+            android:id="@+id/txtUserCardTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/textviewborder"
+            android:gravity="center"
+            android:text="@string/userCardTitle_textView"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtNameCardTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/textviewborder"
+            android:gravity="center"
+            android:text="@string/nameCardTitle_textView"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtDepartmentCardTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/textviewborder"
+            android:gravity="center"
+            android:text="@string/departmentCardTitle_textView"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

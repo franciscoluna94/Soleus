@@ -4,118 +4,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_regular"
     tools:context=".activities.CreateOrModifyUserActivity">
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="503dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="141dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="88dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+    <TextView
+        android:id="@+id/txtCreateUserTitle"
+        android:layout_width="293dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/createUserTitle_textView"
+        android:textAlignment="center"
+        android:textColor="@color/soleus_dark"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/imgCreateUserCorner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txtUserAdminActivity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Usuario" />
+    <ImageView
+        android:id="@+id/imgCreateUserCorner"
+        android:layout_width="117dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/miniLogo_description"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtCreateUserTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/soleusregular" />
+
+    <LinearLayout
+        android:id="@+id/linearCreateUser"
+        android:layout_width="364dp"
+        android:layout_height="408dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/linearbg"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCreateUserTitle">
+
 
         <EditText
             android:id="@+id/editUserAdminActivity"
-            android:layout_width="match_parent"
+            android:layout_width="333dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="28dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:maxLength="3" />
-
-        <TextView
-            android:id="@+id/txtPasswordAdminActivity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Contraseña" />
+            android:hint="@string/createUserUser_editText"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLength="3"
+            android:minHeight="48dp"
+            android:textColor="@color/soleus_dark"
+            tools:ignore="TextContrastCheck,TextFields" />
 
         <EditText
             android:id="@+id/editPasswordAdminActivity"
-            android:layout_width="match_parent"
+            android:layout_width="333dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:maxLength="6" />
-
-        <TextView
-            android:id="@+id/txtNameAdminActivity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Nombre" />
+            android:hint="@string/password_editText"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:maxLength="6"
+            android:minHeight="48dp"
+            android:textColor="@color/soleus_dark"
+            tools:ignore="TextContrastCheck,TextFields" />
 
         <EditText
             android:id="@+id/editNameAdminActivity"
-            android:layout_width="match_parent"
+            android:layout_width="333dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:maxLength="20" />
-
-        <TextView
-            android:id="@+id/txtDepartmentAdminActivity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Departamento" />
+            android:hint="@string/createUserName_editText"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLength="20"
+            android:minHeight="48dp"
+            android:textColor="@color/soleus_dark"
+            tools:ignore="TextContrastCheck" />
 
         <EditText
             android:id="@+id/editDepartmentAdminActivity"
-            android:layout_width="match_parent"
+            android:layout_width="333dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:maxLength="12" />
+            android:hint="@string/createUserDepartment_editText"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLength="12"
+            android:minHeight="48dp"
+            android:textColor="@color/soleus_dark"
+            tools:ignore="TextContrastCheck" />
+
 
         <Button
             android:id="@+id/btnSendAdminActivity"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Enviar" />
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:text="@string/createUser_button"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

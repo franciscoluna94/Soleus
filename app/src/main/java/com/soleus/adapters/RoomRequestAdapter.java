@@ -14,6 +14,8 @@ import com.soleus.R;
 import com.soleus.models.RoomRequest;
 import com.soleus.net.ClientNet;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class RoomRequestAdapter extends RecyclerView.Adapter<RoomRequestAdapter.ViewHolder>  {
@@ -40,6 +42,12 @@ public class RoomRequestAdapter extends RecyclerView.Adapter<RoomRequestAdapter.
         holder.txtRoomCard.setText(roomRequestList.get(position).getClientRoom());
         holder.txtItemCard.setText(roomRequestList.get(position).getRequestItem());
         holder.txtDescriptionCard.setText(roomRequestList.get(position).getRequestDescription());
+        holder.txtTimeCard.setText(roomRequestList.get(position).getRequestTime());
+        if (roomRequestList.get(position).isRequestEnded()) {
+            holder.txtEndedCard.setText("Finalizada");
+        } else {
+            holder.txtEndedCard.setText("Pendiente");
+        }
     } // onBindViewHolder
 
 
@@ -59,6 +67,8 @@ public class RoomRequestAdapter extends RecyclerView.Adapter<RoomRequestAdapter.
         private TextView txtItemCard;
         private TextView txtDescriptionCard;
         private TextView txtIdCard;
+        private TextView txtTimeCard;
+        private TextView txtEndedCard;
 
         public ViewHolder(View view) {
             super(view);
@@ -69,6 +79,8 @@ public class RoomRequestAdapter extends RecyclerView.Adapter<RoomRequestAdapter.
             txtItemCard = view.findViewById(R.id.txtItemCard);
             txtDescriptionCard = view.findViewById(R.id.txtDescriptionCard);
             txtIdCard = view.findViewById(R.id.txtIdCard);
+            txtTimeCard = view.findViewById(R.id.txtTimeCard);
+            txtEndedCard = view.findViewById(R.id.txtEndedCard);
 
         }
 

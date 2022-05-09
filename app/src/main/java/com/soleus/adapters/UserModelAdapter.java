@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soleus.R;
-import com.soleus.models.RoomRequest;
 import com.soleus.models.UserModel;
 import com.soleus.net.ClientNet;
 
@@ -59,9 +58,9 @@ public class UserModelAdapter extends RecyclerView.Adapter<UserModelAdapter.View
 
             view.setOnLongClickListener(this);
 
-            txtRoomNumberCard = view.findViewById(R.id.txtRoomNumberCard);
+            txtRoomNumberCard = view.findViewById(R.id.txtUserCard);
             txtNameCard = view.findViewById(R.id.txtNameCard);
-            txtDepartmentCard = view.findViewById(R.id.txtUserDepartmentCard);
+            txtDepartmentCard = view.findViewById(R.id.txtDepartmentCard);
 
         }
 

@@ -12,10 +12,11 @@ public class RoomRequest implements Serializable {
     private String requestDescription;
     private String requestDepartment;
     private String clientRoom;
+    private String requestTime;
     private boolean requestEnded;
 
     public RoomRequest(int requestId, String requestTopic, String requestItem, String requestDescription, String requestDepartment,
-                       boolean requestEnded, String clientRoom) {
+                       boolean requestEnded, String clientRoom, String requestTime) {
         this.requestId = requestId;
         this.requestTopic = requestTopic;
         this.requestItem = requestItem;
@@ -23,12 +24,11 @@ public class RoomRequest implements Serializable {
         this.requestDepartment = requestDepartment;
         this.requestEnded = requestEnded;
         this.clientRoom = clientRoom;
+        this.requestTime = requestTime;
     }
 
     public RoomRequest(String requestItem, String requestDescription, String requestDepartment,
                        boolean requestEnded, String clientRoom) {
-        this.requestId = requestId;
-        this.requestTopic = requestTopic;
         this.requestItem = requestItem;
         this.requestDescription = requestDescription;
         this.requestDepartment = requestDepartment;
@@ -43,6 +43,10 @@ public class RoomRequest implements Serializable {
         this.requestDescription = requestDescription;
         this.requestDepartment = requestDepartment;
         this.clientRoom = clientRoom;
+    }
+
+    public RoomRequest(String requestItem) {
+        this.requestItem = requestItem;
     }
 
     public RoomRequest(int requestId) {
@@ -77,6 +81,10 @@ public class RoomRequest implements Serializable {
         return requestDepartment;
     }
 
+    public String getRequestTime() {
+        return requestTime;
+    }
+
     public void setRequestDepartment(String requestDepartment) {
         this.requestDepartment = requestDepartment;
     }
@@ -101,4 +109,7 @@ public class RoomRequest implements Serializable {
         return requestId;
     }
 
+    public void setRequestDate(String date) {
+        this.requestTime = date;
+    }
 }
