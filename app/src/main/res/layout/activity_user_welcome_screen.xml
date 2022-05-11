@@ -36,8 +36,8 @@
 
     <LinearLayout
         android:id="@+id/linearWelcome"
-        android:layout_width="351dp"
-        android:layout_height="457dp"
+        android:layout_width="358dp"
+        android:layout_height="547dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="25dp"
@@ -64,7 +64,7 @@
             android:id="@+id/btnWelcomeHkRequest"
             android:layout_width="255dp"
             android:layout_height="142dp"
-            android:layout_marginStart="46dp"
+            android:layout_gravity="center"
             android:layout_marginTop="32dp"
             android:background="@color/soleus_dark"
             android:contentDescription="@string/housekeepingButton_description"
@@ -75,12 +75,23 @@
             android:id="@+id/btnWelcomeMtRequest"
             android:layout_width="255dp"
             android:layout_height="142dp"
-            android:layout_marginStart="46dp"
+            android:layout_gravity="center"
             android:layout_marginTop="32dp"
             android:background="@color/soleus_dark"
             android:contentDescription="@string/maintenanceButton_description"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/mt2button" />
+
+        <ImageButton
+            android:id="@+id/btnWelcomemyRequests"
+            android:layout_width="167dp"
+            android:layout_height="67dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:background="@color/soleus_dark"
+            android:contentDescription="@string/WelcomeMyRequestsButton_description"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/myrequestsbutton" />
 
     </LinearLayout>
 

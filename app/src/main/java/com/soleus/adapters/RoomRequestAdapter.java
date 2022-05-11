@@ -44,9 +44,11 @@ public class RoomRequestAdapter extends RecyclerView.Adapter<RoomRequestAdapter.
         holder.txtDescriptionCard.setText(roomRequestList.get(position).getRequestDescription());
         holder.txtTimeCard.setText(roomRequestList.get(position).getRequestTime());
         if (roomRequestList.get(position).isRequestEnded()) {
-            holder.txtEndedCard.setText("Finalizada");
+            holder.txtEndedCard.setText(roomRequestList.get(position).getRequestEndTime());
+            holder.txtEndedCard.setBackgroundResource(R.drawable.textviewbordergreen);
         } else {
             holder.txtEndedCard.setText("Pendiente");
+            holder.txtEndedCard.setBackgroundResource(R.drawable.textviewborderred);
         }
     } // onBindViewHolder
 

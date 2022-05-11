@@ -17,32 +17,28 @@ import javax.crypto.spec.SecretKeySpec;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public final class Utils {
 
-    private static String toastFailedLogin = "Por favor, verifique el usuario y la contraseña";
-    private static String severErrorToast = "Este servicio no se encuentra disponible, por favor, contacte con recepción";
-    private static String requestSentConfirmation = "Petición enviada";
-    private static String requestEndedConfirmation = "Petición terminada";
-    private static String userCreatedConfirmation = "Usuario creado correctamente";
-    private static String emptyFields = "Por favor, rellene todos los campos";
-    private static String wrongLength = "La contraseña debe tener 6 carácteres";
-    private static String wrongDepartment = "Los departamentos válidos son: Client, Housekeeping, Maintenance, Admin";
-    private static String modifiedUser = "Usuario modificado correctamente";
-    private static String wrongUser = "Datos incorrectos, por favor, verifique los campos";
-    private static String forbidden = "No tiene permisos para realizar la operación";
+    private static final String toastFailedLogin = "Por favor, verifique el usuario y la contraseña";
+    private static final String severErrorToast = "Este servicio no se encuentra disponible, por favor, contacte con recepción";
+    private static final String requestSentConfirmation = "Petición enviada";
+    private static final String userCreatedConfirmation = "Usuario creado correctamente";
+    private static final String emptyFields = "Por favor, rellene todos los campos";
+    private static final String wrongLength = "La contraseña debe tener 6 carácteres";
+    private static final String wrongDepartment = "Los departamentos válidos son: Client, Housekeeping, Maintenance, Admin";
+    private static final String modifiedUser = "Usuario modificado correctamente";
+    private static final String wrongUser = "Datos incorrectos, por favor, verifique los campos";
+    private static final String forbidden = "No tiene permisos para realizar la operación";
 
     static Cipher cipher;
 
     private final static String key = "bb60fNMNLHMxbfLmRnvF2g==";
-    private static byte[] decodedKey = Base64.getDecoder().decode(key);
-    private static SecretKey secretKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+    private static final byte[] decodedKey = Base64.getDecoder().decode(key);
+    private static final SecretKey secretKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 
 
 
     private Utils() {
     }
 
-    public static void makeToast(Context context, String text) {
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
-    }
 
     public static void showToastFailedLogin(Context context) {
         Toast.makeText(context, toastFailedLogin, Toast.LENGTH_SHORT).show();

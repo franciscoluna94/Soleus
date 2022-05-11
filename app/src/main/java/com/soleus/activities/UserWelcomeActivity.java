@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 
 import com.soleus.R;
 import com.soleus.models.UserModel;
+import com.soleus.net.ClientNet;
 
 public class UserWelcomeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,10 +29,12 @@ public class UserWelcomeActivity extends AppCompatActivity implements View.OnCli
         /* References to components */
         ImageButton btnHousekeeping = findViewById(R.id.btnWelcomeHkRequest);
         ImageButton btnMaintenance = findViewById(R.id.btnWelcomeMtRequest);
+        ImageButton btnMyRequests = findViewById(R.id.btnWelcomemyRequests);
 
         /* Listeners */
         btnHousekeeping.setOnClickListener(this);
         btnMaintenance.setOnClickListener(this);
+        btnMyRequests.setOnClickListener(this);
 
 
 
@@ -51,6 +54,12 @@ public class UserWelcomeActivity extends AppCompatActivity implements View.OnCli
                 openMaintenanceRequest.putExtra("userLogged", userLogged);
                 startActivity(openMaintenanceRequest);
                 break;
+            case R.id.btnWelcomemyRequests:
+                Thread getRoomRequests = new Thread( new ClientNet(userLogged,
+                        getString(R.string.updateRoomRequestList_Request), view, this)) ;
+                getRoomRequests.start();
+                break;
+
         }
     }
 

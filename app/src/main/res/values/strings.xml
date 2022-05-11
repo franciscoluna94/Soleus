@@ -72,6 +72,7 @@
     <string name="AdminUsersListButton_description">Ver usuarios</string>
     <string name="AdminCreateHkRequest_description">Crear petición a pisos</string>
     <string name="AdminCreateMtRequest_description">Crear petición a mantenimiento</string>
+    <string name="WelcomeMyRequestsButton_description">Mis peticiones</string>
 
     <!-- Departments -->
     <string name="housekeeping">HOUSEKEEPING</string>
